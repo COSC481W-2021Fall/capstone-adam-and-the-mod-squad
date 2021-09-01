@@ -11,3 +11,5 @@ Team Members:
 Sara Schafer: I like reading manga and watch anime.
 
 Adam Pollack: I like to disc golf, mountain bike and read.
+
+Chiara Oxender: I like fantasy and hate javascript.
