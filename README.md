@@ -9,3 +9,5 @@ People put in activities that they want to complete. They get points for complet
 Team Members:
 
 Sara Schafer: I like reading manga and watch anime.
+
+Adam Pollack: I like to disc golf, mountain bike and read.
