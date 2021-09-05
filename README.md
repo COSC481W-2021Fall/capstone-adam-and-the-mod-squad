@@ -10,7 +10,7 @@ Team Members:
 
 Sara Schafer: II like to watch anime, read comics, and play video games. I also like do art, like watercolor paining. My favorite type of video games are mystery games.
 
-Adam Pollack: I like to disc golf, mountain bike and read.
+Adam Pollack: I like to disc golf, mountain bike and read, as well as a host of other activites. Currently I am a senior on the last semester, and leaning towards a data scientist role. My goal is to move to Colorado or Utah as I have family there and love the area.
 
 Chiara Oxender: I like fantasy and hate javascript.
 
