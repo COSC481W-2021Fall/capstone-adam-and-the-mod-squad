@@ -4,7 +4,7 @@ capstone-adam-and-the-mod-squad created by GitHub Classroom
 Team Name: Adam and the Mod Squad
 
 Description: 
-People put in activities that they want to complete. They get points for completing tasks and use the points towards playing a game. A fantasy task manager game.
+A habit tracking/to do list application with a gamification component.  You gain points by completing your daily tasks and you use them to collect creatures.
 
 Team Members:
 
@@ -17,3 +17,6 @@ Chiara Oxender: I like fantasy and hate javascript.
 Sakib Jabbar: I like music, movies, food, and nature. I am a second bachelor's student in Computer Science (Applied) at EMU, currently completing my final semester in the program. My favorite coding language is Java.
 
 Jesse Rogalski: I like hiking, movies, music, and gaming. I am a senior computer science major on my last semester before I receive my degree. Afterwards, I'm considering pursuing a career in video game development.
+
+Andreaka Jump: I am a senior CS major and this is actually my second bachelors.  I also have a BFA in Art and Design.  I like to paint and do other crafting type projects.
+
