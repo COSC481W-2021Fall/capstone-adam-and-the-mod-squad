@@ -8,12 +8,12 @@ People put in activities that they want to complete. They get points for complet
 
 Team Members:
 
-Sara Schafer: I like to watch anime, read comics, and play video games. I also like do art, like watercolor paining. My favorite type of video games are mystery games.
+Sara Schafer: II like to watch anime, read comics, and play video games. I also like do art, like watercolor paining. My favorite type of video games are mystery games.
 
 Adam Pollack: I like to disc golf, mountain bike and read, as well as a host of other activites. Currently I am a senior on the last semester, and leaning towards a data scientist role. My goal is to move to Colorado or Utah as I have family there and love the area.
 
-Chiara Oxender: I like fantasy and hate javascript. I'm working towards getting into cybersecurity again.  I have had chickens and my dream is to get them once again.  
+Chiara Oxender: I like fantasy and hate javascript.
 
-Sakib Jabbar: I like music, movies, food, and nature.
+Sakib Jabbar: I like music, movies, food, and nature. I am a second bachelor's student in Computer Science (Applied) at EMU, currently completing my final semester in the program. My favorite coding language is Java.
 
 Jesse Rogalski: I like hiking, movies, music, and gaming. I am a senior computer science major on my last semester before I receive my degree. Afterwards, I'm considering pursuing a career in video game development.
