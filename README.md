@@ -15,3 +15,5 @@ Adam Pollack: I like to disc golf, mountain bike and read.
 Chiara Oxender: I like fantasy and hate javascript.
 
 Sakib Jabbar: I like music, movies, food, and nature.
+
+Jesse Rogalski: I like hiking, movies, music, and gaming. I am a senior computer science major on my last semester before I receive my degree. Afterwards, I'm considering pursuing a career in video game development.
