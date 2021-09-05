@@ -2,6 +2,7 @@
 capstone-adam-and-the-mod-squad created by GitHub Classroom
 
 Team Name: Adam and the Mod Squad
+Project Name: Muninn
 
 Description: 
 A habit tracking/to do list application with a gamification component.  You gain points by completing your daily tasks and you use them to collect creatures.
