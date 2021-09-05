@@ -8,7 +8,7 @@ People put in activities that they want to complete. They get points for complet
 
 Team Members:
 
-Sara Schafer: I like reading manga and watch anime.
+Sara Schafer: II like to watch anime, read comics, and play video games. I also like do art, like watercolor paining. My favorite type of video games are mystery games.
 
 Adam Pollack: I like to disc golf, mountain bike and read.
 
