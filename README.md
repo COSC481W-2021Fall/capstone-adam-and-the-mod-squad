@@ -7,7 +7,7 @@ Project Name: Muninn
 Description: 
 A habit tracking/to do list application with a gamification component.  You gain points by completing your daily tasks and you use them to collect creatures.
 
-Team Members:
+## Team Members:
 
 Sara Schafer: I like to watch anime, read comics, and play video games. I also like do art, like watercolor paining. My favorite type of video games are mystery games.
 
@@ -21,7 +21,7 @@ Jesse Rogalski: I like hiking, movies, music, and gaming. I am a senior computer
 
 Andreaka Jump: I am a senior CS major and this is actually my second bachelors.  I also have a BFA in Art and Design.  I like to paint and do other crafting type projects.
 
-Commit Message Guidelines:
+## Commit Message Guidelines:
 
 Capitalized, short (50 chars or less) summary
 
