@@ -1,2 +1,0 @@
-.settings.py
-.481-Ec2-key.pem
