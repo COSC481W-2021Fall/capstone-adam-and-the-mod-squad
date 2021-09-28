@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-sjbtjp((3flzx(239d*iuf6mp3_9%nt$_0m=d4^obe(n7c0vj&
 DEBUG = True
 
 #NOTE if AWS EC2 INSTANCE IS TURNED OFF AND BACK ON, HOST will  need to be changed!
-ALLOWED_HOSTS = ['54.204.241.216']
+ALLOWED_HOSTS = ['54.204.241.216', '127.0.0.1']
 
 
 # Application definition
@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'mydjangoproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djangoprojectdb',
-	'USER': 'admin',
-	'PASSWORD': 'Muninn-project2021',
-	'HOST': 'muninn-db.cdml8en4e9f1.us-east-1.rds.amazonaws.com',
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': '481Testing',
+	'USER': 'root',
+	'PASSWORD': '',
+	'HOST': 'localhost',
 	'PORT': '3306'
     }
 }
