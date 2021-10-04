@@ -21,3 +21,14 @@ class userV2(models.Model):
 
     def get_update_url(self):
         return reverse("muninn_user_update", args=(self.pk,))
+
+class MuninnUserv2(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    username = models.TextField()
+    password = models.TextField()
+    first_name = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'muninn_userv2'
+
