@@ -32,5 +32,5 @@ def login_user(request):
 
 def logout_view(request):
     logout(request)
-    # Redirect to a success page.
-    return render(request, 'users/logout.html')
+    messages.success(request, 'You logged out!')
+    return redirect('muninn-home')
