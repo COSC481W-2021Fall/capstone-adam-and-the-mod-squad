@@ -1,0 +1,24 @@
+{% extends "muninn/base.html"%}
+
+{% block content %}
+    <h1>Log In </h1>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class='form-group'>
+                      <label for="uname"><b>Username</b></label>
+                      <input type="text" placeholder="Enter Username" name="username" required>
+                  
+                      <label for="psw"><b>Password</b></label>
+                      <input type="password" placeholder="Enter Password" name="password" required>
+                  
+                      <button type="submit">Login</button>
+                      
+            </fieldset>
+        </form>
+    </div>
+    <div class="alert-alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    <input type="button" onclick="location.href='../../';" value="Quit" />
+{% endblock content %}
