@@ -11703,3 +11703,16 @@ body {
 .loginText {
     margin-left: 70px;
 }
+
+#homeLogo {
+    width: 500px;
+    height: 500px;
+    margin-top: -130px;
+    margin-left: 160px;
+    float: left;
+}
+
+#homeText {
+    margin-top: 250px;
+    font-size: 150px;
+}
