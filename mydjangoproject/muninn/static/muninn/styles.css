@@ -11694,3 +11694,12 @@ body {
     font-size: 0.75rem;
     border-radius: 0.25rem !important;
 }
+
+#login {
+    margin-top: 200px;
+    text-align: center;
+}
+
+.loginText {
+    margin-left: 70px;
+}
