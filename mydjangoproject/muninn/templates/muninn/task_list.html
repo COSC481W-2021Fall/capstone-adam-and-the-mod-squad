@@ -14,7 +14,7 @@
                         {% for task in tasks %}
                         <tr>
                             <td>
-                                <input type="checkbox" id="completeTask" name="completeTask">
+                                <input type="submit" id="{{ task.id }}" value="{{ task.id }}" name="completeTask">
                                 <label for="completeTask">{{ task.title }}</label>
                             </td>
                         </tr>
@@ -23,7 +23,7 @@
                         {% endfor %}
                     </table>
                     {% csrf_token %}
-                    <input type="submit" id="{{ task.id }}" value="Mark Selected as Complete" name="completeTask"><br><br>
+                    <br><br>
                 </form>
                 <form method="POST">
                     {% csrf_token %}

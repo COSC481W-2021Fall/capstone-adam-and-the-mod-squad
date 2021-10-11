@@ -18,9 +18,12 @@ class dashboard(LoginRequiredMixin, ListView):
             form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
             form.save()
         if 'completeTask' in request.POST:
-            print(request.POST.get(id))
-            queriedTask = Task.objects.get(pk=7) # <- id passed thru will change with frontend
-            queriedTask.complete = 1
+            #print(request.POST.get('completeTask'))
+            queriedTask = Task.objects.get(pk=request.POST.get('completeTask'))
+            if queriedTask.complete == 1:
+                queriedTask.complete = 0
+            else:
+                queriedTask.complete = 1
             queriedTask.save()
         return redirect('muninn-dashboard')
     def get_context_data(self, **kwargs):
