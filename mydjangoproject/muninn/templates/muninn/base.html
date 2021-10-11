@@ -122,6 +122,7 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
+            {% endif %} 
             <main>
                 <div>
                     {% block content %}{% endblock %}
@@ -134,7 +135,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
             <script src="{% static 'muninn/datatables-simple-demo.js' %}"></script>
-            {% endif %} 
+            
 </body>
 
 </html>
