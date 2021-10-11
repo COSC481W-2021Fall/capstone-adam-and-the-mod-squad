@@ -11695,6 +11695,11 @@ body {
     border-radius: 0.25rem !important;
 }
 
+/* Start of code written by us*/
+.home-page {
+    margin:100px;
+}
+
 #login {
     margin-top: 200px;
     text-align: center;
