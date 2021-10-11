@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 def register(request):
@@ -9,12 +10,8 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('users-register')
+            return redirect('users-login')
         
     else:
         form = UserCreationForm()
     return render(request, 'users/register.html', {'form': form})
-
-def login(request):
-    return render(request, 'users/login.html')
-
