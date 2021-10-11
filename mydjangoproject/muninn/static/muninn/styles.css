@@ -11700,3 +11700,30 @@ body {
     font-size: 0.75rem;
     border-radius: 0.25rem !important;
 }
+
+/* Start of code written by us*/
+.home-page {
+    margin:100px;
+}
+
+#login {
+    margin-top: 200px;
+    text-align: center;
+}
+
+.loginText {
+    margin-left: 70px;
+}
+
+#homeLogo {
+    width: 500px;
+    height: 500px;
+    margin-top: -130px;
+    margin-left: 160px;
+    float: left;
+}
+
+#homeText {
+    margin-top: 250px;
+    font-size: 150px;
+}
