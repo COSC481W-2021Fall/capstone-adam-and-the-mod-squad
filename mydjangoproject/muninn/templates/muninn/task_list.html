@@ -9,20 +9,27 @@
                 <h5>Tasks</h5>
             </div>
             <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
-                <table>
-                    {% for task in tasks %}
-                    <tr>
-                        <td>{{ task.title }}</td>
-                    </tr>
-                    {% empty %}
-                    <h3>No tasks</h3>
-                    {% endfor %}
-                </table>
-                <form method="POST" action="">
+                <form method="POST">
+                    <table>
+                        {% for task in tasks %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="completeTask" name="completeTask">
+                                <label for="completeTask">{{ task.title }}</label>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <h3>No tasks</h3>
+                        {% endfor %}
+                    </table>
+                    {% csrf_token %}
+                    <input type="submit" id="{{ task.id }}" value="Mark Selected as Complete" name="completeTask"><br><br>
+                </form>
+                <form method="POST">
                     {% csrf_token %}
                     {{form.as_p}}
                     <input type="text" id="task" name="task">
-                    <input type="submit" value="Add Task">
+                    <input type="submit" name="addTask" value="Add Task">
                 </form>
             </div>
         </div>
