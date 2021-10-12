@@ -1,23 +1,25 @@
 {% extends "muninn/base.html"%}
 
 {% block content %}
-    <h1>Sign Up </h1>
+    <div class=" home-page offset-1">
+    
     <div class="alert-alert-{{ message.tags }}">
         {{ message }}
     </div>
-    <form method="POST">
+    <form  method="POST">
         {% csrf_token %}
         
         <fieldset>
-            <legend> Sign Up for Munnin </legend>
+            <legend > Sign Up for Munnin </legend>
             {{ form.as_p }}
         </fieldset>
         <div>
             <button type="submit">Sign Up</button>
         </div>
-    
+    <br>
     <p>Already have an Account? <a href= ../login> Click Here </a></p>
 
     <input type="button" onclick="location.href='../../';" value="Quit" />
 </form>
+</div>
 {% endblock content %}

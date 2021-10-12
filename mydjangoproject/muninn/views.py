@@ -10,22 +10,30 @@ from datetime import date
 def home(request):
     return render(request, 'muninn/home.html')
 
+
 class dashboard(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
     def post(self, request, *args, **kwargs):
-        if 'addTask' in request.POST:
-            form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
-            form.save()
-        if 'completeTask' in request.POST:
-            print(request.POST)
-            queriedTask = Task.objects.get(pk=request.POST.get('hidden-completeTask'))
-            if queriedTask.complete == 1:
-                queriedTask.complete = 0
-            else:
-                queriedTask.complete = 1
-            queriedTask.save()
-        return redirect('muninn-dashboard')
+        try:
+            if 'addTask' in request.POST:
+                form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
+                form.save()
+            if 'completeTask' in request.POST:
+                print(request.POST)
+                queriedTask = Task.objects.get(pk=request.POST.get('hidden-completeTask'))
+                if queriedTask.complete == 1:
+                    queriedTask.complete = 0
+                else:
+                    queriedTask.complete = 1
+                queriedTask.save()
+            if 'deleteTask' in request.POST:
+                    queriedTask = Task.objects.get(pk=request.POST.get('delete-hidden'))
+                    queriedTask.delete()
+                    return redirect('muninn-dashboard')
+            return redirect('muninn-dashboard')
+        except Exception :
+            return redirect('muninn-dashboard')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
@@ -39,3 +47,4 @@ class dashboard(LoginRequiredMixin, ListView):
         context['search_input'] = search_input
 
         return context
+
