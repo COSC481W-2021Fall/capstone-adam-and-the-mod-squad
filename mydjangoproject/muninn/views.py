@@ -10,6 +10,7 @@ from datetime import date
 def home(request):
     return render(request, 'muninn/home.html')
 
+
 class dashboard(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
@@ -38,3 +39,4 @@ class dashboard(LoginRequiredMixin, ListView):
         context['search_input'] = search_input
 
         return context
+

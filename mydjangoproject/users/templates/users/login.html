@@ -1,20 +1,22 @@
-{% extends "muninn/base.html"%}
-
-{% block content %}
-    <h1>Log In </h1>
+{% extends "muninn/base.html"%} {% block content %}
+<div id="login">
+    <h1 class="loginText">Log In </h1>
+    <br>
     <div>
         <form method="POST">
             {% csrf_token %}
             <fieldset class='form-group'>
                 {{ form.as_p }}
-                  
-                      <button type="submit">Login</button>
-                      
+
+                <button type="submit" class="loginText">Login</button>
+
             </fieldset>
         </form>
     </div>
     <div class="alert-alert-{{ message.tags }}">
         {{ message }}
     </div>
-    <input type="button" onclick="location.href='../../';" value="Quit" />
+    <br>
+    <input type="button" onclick="location.href='../../';" class="loginText" value="Quit" />
+</div>
 {% endblock content %}

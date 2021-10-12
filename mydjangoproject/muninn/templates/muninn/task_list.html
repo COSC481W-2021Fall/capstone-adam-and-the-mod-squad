@@ -1,6 +1,6 @@
 {% extends "muninn/base.html" %} 
 {% block content %}
-
+<div class="basic-margin">
 <h1 class="mt-4">Dashboard</h1>
 <div class="row">
     <div class="col-xl-6">
@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h5>Tasks</h5>
             </div>
-            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
+            <div class="card-body">
                 <table>
                     {% for task in tasks %}
                     <tr>
@@ -28,8 +28,10 @@
                 <form method="POST" action="">
                     {% csrf_token %}
                     {{form.as_p}}
+
                     <input type="text" id="task" name="task">
                     <input type="submit" name="addTask" value="Add Task">
+
                 </form>
             </div>
         </div>
@@ -44,5 +46,5 @@
         </div>
     </div>
 </div>
-
+</div>
 {% endblock content %}
