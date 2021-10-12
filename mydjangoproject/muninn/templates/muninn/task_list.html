@@ -13,6 +13,13 @@
                     {% for task in tasks %}
                     <tr>
                         <td>{{ task.title }}</td>
+                        <td>
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <input hidden name="delete-hidden" value="{{ task.id }}">
+                                <input type="submit" name="deleteTask" value="delete">
+                            </form>
+                        </td>
                     </tr>
                     {% empty %}
                     <h3>No tasks</h3>
@@ -21,8 +28,10 @@
                 <form method="POST" action="">
                     {% csrf_token %}
                     {{form.as_p}}
-                    <input type="text" id="task" name="task" required>
-                    <input type="submit" value="Add Task">
+
+                    <input type="text" id="task" name="task">
+                    <input type="submit" name="addTask" value="Add Task">
+
                 </form>
             </div>
         </div>

@@ -15,9 +15,17 @@ class dashboard(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
     def post(self, request, *args, **kwargs):
-        form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
-        form.save()
-        return redirect('muninn-dashboard')
+        if 'deleteTask' in request.POST:
+            try:
+                queriedTask = Task.objects.get(pk=request.POST.get('delete-hidden'))
+                queriedTask.delete()
+                return redirect('muninn-dashboard')
+            except Exception :
+                return redirect('muninn-dashboard')
+        elif 'addTask' in request.POST:
+            form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
+            form.save()
+            return redirect('muninn-dashboard')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
