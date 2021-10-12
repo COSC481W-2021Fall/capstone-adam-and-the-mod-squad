@@ -18,8 +18,8 @@ class dashboard(LoginRequiredMixin, ListView):
             form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
             form.save()
         if 'completeTask' in request.POST:
-            #print(request.POST.get('completeTask'))
-            queriedTask = Task.objects.get(pk=request.POST.get('completeTask'))
+            print(request.POST)
+            queriedTask = Task.objects.get(pk=request.POST.get('hidden-completeTask'))
             if queriedTask.complete == 1:
                 queriedTask.complete = 0
             else:

@@ -9,22 +9,26 @@
                 <h5>Tasks</h5>
             </div>
             <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
-                <form method="POST">
                     <table>
                         {% for task in tasks %}
                         <tr>
                             <td>
-                                <input type="submit" id="{{ task.id }}" value="{{ task.id }}" name="completeTask">
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                            
+                                
+                                <input hidden value="{{ task.id }}" name="hidden-completeTask">
+                                
+                            <input type="submit" name="completeTask" value="X" style="background-color: {% if task.complete == 1 %}green {%else%} red {% endif %}">
                                 <label for="completeTask">{{ task.title }}</label>
+                            </form>
                             </td>
                         </tr>
                         {% empty %}
                         <h3>No tasks</h3>
                         {% endfor %}
                     </table>
-                    {% csrf_token %}
                     <br><br>
-                </form>
                 <form method="POST">
                     {% csrf_token %}
                     {{form.as_p}}
