@@ -18,7 +18,16 @@
                                 {% csrf_token %}
                                 <input hidden value="{{ task.id }}" name="hidden-completeTask">
                                 <input type="submit" name="completeTask" value="X" style="background-color: {% if task.complete == 1 %}green {%else%} red {% endif %}">
-                                <label for="completeTask">{{ task.title }}</label>
+                            </form>
+                            </td>
+                            <td>
+                            <label for="completeTask">{{ task.title }}</label>
+                        </td>
+                        <td>
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <input hidden name="delete-hidden" value="{{ task.id }}">
+                                <input type="submit" name="deleteTask" value="delete">
                             </form>
                             </td>
                         </tr>
