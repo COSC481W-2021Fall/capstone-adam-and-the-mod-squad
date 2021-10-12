@@ -8,30 +8,32 @@
             <div class="card-header">
                 <h5>Tasks</h5>
             </div>
+
             <div class="card-body">
-                <table>
-                    {% for task in tasks %}
-                    <tr>
-                        <td>{{ task.title }}</td>
-                        <td>
+                    <table>
+                        {% for task in tasks %}
+                        <tr>
+                            <td>
                             <form method="POST" action="">
                                 {% csrf_token %}
-                                <input hidden name="delete-hidden" value="{{ task.id }}">
-                                <input type="submit" name="deleteTask" value="delete">
+                                <input hidden value="{{ task.id }}" name="hidden-completeTask">
+                                <input type="submit" name="completeTask" value="X" style="background-color: {% if task.complete == 1 %}green {%else%} red {% endif %}">
+                                <label for="completeTask">{{ task.title }}</label>
                             </form>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <h3>No tasks</h3>
-                    {% endfor %}
-                </table>
-                <form method="POST" action="">
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <h3>No tasks</h3>
+                        {% endfor %}
+                    </table>
+                    <br><br>
+                <form method="POST">
+
                     {% csrf_token %}
                     {{form.as_p}}
 
                     <input type="text" id="task" name="task">
                     <input type="submit" name="addTask" value="Add Task">
-
                 </form>
             </div>
         </div>
