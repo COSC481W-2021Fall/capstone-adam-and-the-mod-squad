@@ -17,3 +17,13 @@ class Task(models.Model):
 	
 	class Meta:
 		ordering = ['complete']
+
+class Animals(models.Model):
+    file_name = models.CharField(primary_key=True, max_length=30)
+    price = models.IntegerField()
+    name = models.CharField(max_length=30)
+    level = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'animals'
