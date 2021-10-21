@@ -10,6 +10,24 @@ from datetime import date
 def home(request):
     return render(request, 'muninn/home.html')
 
+def petshop(request):
+    return render(request, 'muninn/pet_shop.html')
+
+def about(request):
+    return render(request, 'muninn/about.html')
+
+def roost(request):
+    return render(request, 'muninn/roost.html')
+
+def usersettings(request):
+    return render(request, 'muninn/user_settings.html')
+
+def friends(request):
+    return render(request, 'muninn/friends.html')
+
+def statistics(request):
+    return render(request, 'muninn/statistics.html')
+
 
 class dashboard(LoginRequiredMixin, ListView):
     model = Task
