@@ -12,10 +12,7 @@ def home(request):
 
 def petshop(request):
     allAnimals = Animals.objects.all()
-    listOfFileNames = Animals.objects.values_list('file_name')
-    print(allAnimals)
-
-    return render(request, 'muninn/pet_shop.html', {'file_names': listOfFileNames})
+    return render(request, 'muninn/pet_shop.html', {'animalList': allAnimals})
 
 def about(request):
     return render(request, 'muninn/about.html')

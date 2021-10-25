@@ -27,3 +27,8 @@ class Animals(models.Model):
     class Meta:
         managed = False
         db_table = 'animals'
+
+class Player(models.Model):
+	playerID = models.OneToOneField(User, on_delete=models.CASCADE)
+	points = models.IntegerField()
+	money = models.IntegerField()
