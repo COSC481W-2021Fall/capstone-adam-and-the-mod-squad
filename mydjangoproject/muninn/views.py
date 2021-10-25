@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Task
+from .models import Task, Animals
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
@@ -11,7 +11,11 @@ def home(request):
     return render(request, 'muninn/home.html')
 
 def petshop(request):
-    return render(request, 'muninn/pet_shop.html')
+    allAnimals = Animals.objects.all()
+    listOfFileNames = Animals.objects.values_list('file_name')
+    print(allAnimals)
+
+    return render(request, 'muninn/pet_shop.html', {'file_names': listOfFileNames})
 
 def about(request):
     return render(request, 'muninn/about.html')
