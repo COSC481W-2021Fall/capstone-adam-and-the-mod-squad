@@ -34,10 +34,11 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'muninn-about' %}">About</a></li>
                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                    <!-- <li><a class="dropdown-item" href="{% url 'about' %}">About</a></li> -->
                     {% else %}
+                    <li><a class="dropdown-item" href="{% url 'muninn-about' %}">About</a></li>
                     <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
                     <li><a class="dropdown-item" href="{% url 'users-register' %}">Register</a></li>
                     {% endif %}
@@ -51,7 +52,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link" href="{% url 'muninn-dashboard' %}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard

@@ -11727,3 +11727,9 @@ body {
     margin-top: 250px;
     font-size: 150px;
 }
+
+#aboutPageBackground{
+    width: 1000px;
+    height: 1000px;
+    background-color: #A14D39;
+}
