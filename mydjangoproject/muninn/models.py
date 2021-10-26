@@ -28,7 +28,12 @@ class Animals(models.Model):
         managed = False
         db_table = 'animals'
 
-class Player(models.Model):
-	playerID = models.OneToOneField(User, on_delete=models.CASCADE)
-	points = models.IntegerField()
-	money = models.IntegerField()
+class MuninnPlayer(models.Model):
+    points = models.IntegerField()
+    money = models.IntegerField()
+    playerid = models.OneToOneField(AuthUser, models.DO_NOTHING, db_column='playerID_id')  # Field name made lowercase.
+    last_day_updates = models.DateField()
+
+    class Meta:
+        managed = False
+        db_table = 'muninn_player'
