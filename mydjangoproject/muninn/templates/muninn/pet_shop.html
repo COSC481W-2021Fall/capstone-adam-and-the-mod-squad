@@ -1,18 +1,30 @@
 {% extends "Muninn/base.html" %} {% load static %} {% block content %}
-<h1 class="text-center">Pet shop</h1>
-<div class="m-auto">
+<div class="basic-margin">
+    <h1 class="mt-4">Pet Shop</h1>
+    <div class="m-sm-auto row-cols-xl-4">
 
-    {% if animalList %}
-    {% for animal in animalList %}
-    <div class="col-4">
-        <img class="petshop"src= "..\..\static\muninn\images\{{animal.file_name}}.png" >       
-        <span>{{animal.name}} LV: {{animal.level}}{{animal.price}}</span> 
-     <button id="buy">BUY</button></div>  
-    </div>
-    {% endfor %}
-    {% else %}
-        <p>Error Loading Pets</p>
-    {% endif %}
-
+        {% if animalList %}
+        {% for animal in animalList %}
+        
+        <div class="card-header basic-margin psp-card" style="float:left; opacity:{% if animal.level > level %}50% {% else %} 100% {% endif %}">
+            <div class="card-body psp-card-inner" ">
+                <span><b>{{animal.name}}</b></span><br>
+                <img class="petshop "src= "..\..\static\muninn\images\{{animal.file_name}}.png" ><br>      
+            </div>
+            <table>
+                <tr class="psp-info-line">
+                    <td> <h5>LV: {{animal.level}}</h5></td><td><h5>COST: {{animal.price}}</h5></td>
+                </tr>
+                <tr class="psp-info-line">
+                    <td > <button class="btn btn-outline-danger" id="buy">BUY</button> </td>
+                </tr>
+            </table>
+            
+        </div>
+        {% endfor %}
+        {% else %}
+            <p>Error Loading Pets</p>
+        {% endif %}
+        </div>
 </div>
 {% endblock content %}
