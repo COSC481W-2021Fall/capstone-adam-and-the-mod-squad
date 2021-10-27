@@ -25,17 +25,16 @@ class Animals(models.Model):
     level = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'animals'
 
 class MuninnPlayer(models.Model):
-    points = models.IntegerField()
+    total_points = models.IntegerField(default=0)
+    daily_points = models.IntegerField(default=0)
     money = models.IntegerField()
     playerid = models.OneToOneField(User, models.DO_NOTHING, db_column='playerID_id')  # Field name made lowercase.
     last_day_updates = models.DateField()
 
     class Meta:
-        managed = False
         db_table = 'muninn_player'
 
 class MuninnDailyHabits(models.Model):
@@ -47,7 +46,6 @@ class MuninnDailyHabits(models.Model):
     title = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
         db_table = 'muninn_daily_habits'
 
 
@@ -57,5 +55,4 @@ class MuninnMasterHabits(models.Model):
     user = models.ForeignKey(User, models.DO_NOTHING)
     title = models.CharField(max_length=200)
     class Meta:
-        managed = False
         db_table = 'muninn_master_habits'
