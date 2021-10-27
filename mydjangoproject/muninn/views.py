@@ -12,9 +12,10 @@ import traceback
 def home(request):
     return render(request, 'muninn/home.html')
 
+@login_required #must be logged in to see
 def petshop(request):
     allAnimals = Animals.objects.all()
-    return render(request, 'muninn/pet_shop.html', {'animalList': allAnimals})
+    return render(request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':0})
 
 def about(request):
     return render(request, 'muninn/about.html')

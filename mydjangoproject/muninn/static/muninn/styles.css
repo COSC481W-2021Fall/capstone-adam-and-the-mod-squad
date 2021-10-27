@@ -5047,10 +5047,6 @@ fieldset:disabled .btn {
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.card-header:first-child {
-    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
-}
-
 .card-footer {
     padding: 0.5rem 1rem;
     background-color: rgba(0, 0, 0, 0.03);
@@ -11716,7 +11712,10 @@ body {
 }
 
 img.petshop{
-    height:200px;
+    height:250px;
+    position:relative;
+    left:.5cm;
+    
 }
 #homeLogo {
     width: 500px;
@@ -11730,6 +11729,29 @@ img.petshop{
     margin-top: 250px;
     font-size: 150px;
 }
+
+.psp-card{
+    background-color: #EA9619;
+    border-radius:18px;
+    border-style:groove;
+    border-color:#FDC764;
+    height: 4.5in;
+    width:3.5in;
+}
+.psp-card-inner{
+    font-size:22pt;
+    border-radius:18px;
+    background-color: #FEE0AA;
+    height: 3.5in;
+}
+.psp-info-line{
+    padding:8px;
+    font-weight:bold;
+    margin:auto;
+    position:relative;
+    left:18px;
+}
+
 #aboutPageBackground{
     width: 50%;
     min-width: 600px;
