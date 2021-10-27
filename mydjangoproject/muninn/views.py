@@ -69,15 +69,17 @@ class dashboard(LoginRequiredMixin, ListView):
                 form2.save()
             if 'completeHabit' in request.POST:
                 print(request.POST)
-                queriedTask = MuninnDailyHabits.objects.get(pk=request.POST.get('hidden-completeTask'))
-                if queriedTask.complete == 1:
-                    queriedTask.complete = 0
+                queriedTask = MuninnDailyHabits.objects.get(pk=request.POST.get('hidden-completeHabit'))
+                if queriedTask.complete == True:
+                    queriedTask.complete = False
                 else:
-                    queriedTask.complete = 1
+                    queriedTask.complete = True
                 queriedTask.save()
             if 'deleteHabit' in request.POST:
-                    queriedTask = Task.objects.get(pk=request.POST.get('delete-hidden-habit'))
-                    queriedTask.delete()
+                    queriedDailyHabit = MuninnDailyHabits.objects.get(pk=request.POST.get('delete-hidden-habit'))
+                    queriedDailyHabit.master_habit.delete()
+                    #queriedMasterHabit = MuninnMasterHabits.objects.get(id=request.POST.get(queriedDailyHabit.master_habit.id))
+                    queriedDailyHabit.delete()
                     return redirect('muninn-dashboard')
             return redirect('muninn-dashboard')
         except Exception :
