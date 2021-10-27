@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from datetime import date
 # models here from 'python manage.py inspectdb'
 
 
@@ -28,7 +28,34 @@ class Animals(models.Model):
         managed = False
         db_table = 'animals'
 
-class Player(models.Model):
-	playerID = models.OneToOneField(User, on_delete=models.CASCADE)
-	points = models.IntegerField()
-	money = models.IntegerField()
+class MuninnPlayer(models.Model):
+    points = models.IntegerField()
+    money = models.IntegerField()
+    playerid = models.OneToOneField(User, models.DO_NOTHING, db_column='playerID_id')  # Field name made lowercase.
+    last_day_updates = models.DateField()
+
+    class Meta:
+        managed = False
+        db_table = 'muninn_player'
+
+class MuninnDailyHabits(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    date = models.DateField()
+    master_habit = models.ForeignKey('MuninnMasterHabits', models.DO_NOTHING, db_column='master_habit', related_name='master_id')
+    complete = models.BooleanField(default=False)
+    user = models.ForeignKey(User, models.DO_NOTHING)
+    title = models.CharField(max_length=200)
+
+    class Meta:
+        managed = False
+        db_table = 'muninn_daily_habits'
+
+
+class MuninnMasterHabits(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    created = models.DateTimeField(date.today())
+    user = models.ForeignKey(User, models.DO_NOTHING)
+    title = models.CharField(max_length=200)
+    class Meta:
+        managed = False
+        db_table = 'muninn_master_habits'
