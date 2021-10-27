@@ -11730,3 +11730,55 @@ img.petshop{
     margin-top: 250px;
     font-size: 150px;
 }
+#aboutPageBackground{
+    width: 50%;
+    min-width: 600px;
+    height: 100%;
+    min-height: 2500px;
+    background-color: #A14D39;
+}
+
+#registerToday{
+    width:90%;
+    min-width:900px;
+    height: 100%;
+    min-height: 300px;
+    margin-left: 11px;
+    background-color: #FDC764;
+}
+
+.aboutContainer{
+    background-color: #FDC764;
+    border: 5px solid #A14D39;
+    width: 1000px;
+    height: 200px;
+    color: #171527;
+}
+
+.aboutButton{
+    position: absolute;
+    top: 305px;
+    left: 59%;
+    transform: translateX(-65%);
+}
+
+.coffeeButton{
+    position: absolute;
+    top: 2310px;
+    left: 59%;
+    transform: translateX(-65%);
+}
+
+.aboutImages{
+    width:150px; 
+    height:150px; 
+    float:right;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.loggedOut{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
