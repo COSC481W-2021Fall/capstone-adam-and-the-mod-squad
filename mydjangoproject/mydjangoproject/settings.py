@@ -77,20 +77,19 @@ WSGI_APPLICATION = 'mydjangoproject.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'djangoprojectdb',
-    'USER': 'root',
-	'PASSWORD': '',
-	'HOST': 'localhost', 
-	'PORT': '3306'
-	#'USER': 'admin',
-	#'PASSWORD': 'Muninn-project2021',
-	#'HOST': 'muninn-db.cdml8en4e9f1.us-east-1.rds.amazonaws.com',
-	#'PORT': '3306'
+        'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangoprojectdb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost', 
+        'PORT': '3306'
+        #'USER': 'admin',
+        #'PASSWORD': 'Muninn-project2021',
+        #'HOST': 'muninn-db.cdml8en4e9f1.us-east-1.rds.amazonaws.com',
+        #'PORT': '3306'
+        }  
     }
-    
-}
 
 
 # Password validation
@@ -136,6 +135,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/login'

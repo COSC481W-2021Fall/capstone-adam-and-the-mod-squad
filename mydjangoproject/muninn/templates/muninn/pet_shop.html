@@ -1,3 +1,18 @@
 {% extends "Muninn/base.html" %} {% load static %} {% block content %}
-<h1>Pet shop</h1>
+<h1 class="text-center">Pet shop</h1>
+<div class="m-auto">
+
+    {% if animalList %}
+    {% for animal in animalList %}
+    <div class="col-4">
+        <img class="petshop"src= "..\..\static\muninn\images\{{animal.file_name}}.png" >       
+        <span>{{animal.name}} LV: {{animal.level}}{{animal.price}}</span> 
+     <button id="buy">BUY</button></div>  
+    </div>
+    {% endfor %}
+    {% else %}
+        <p>Error Loading Pets</p>
+    {% endif %}
+
+</div>
 {% endblock content %}
