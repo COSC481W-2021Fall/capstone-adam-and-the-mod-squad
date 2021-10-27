@@ -11756,9 +11756,19 @@ img.petshop{
 }
 
 .aboutButton{
-    background-color: #EA9619;
-    font-weight: bold;
+    position: absolute;
+    top: 305px;
+    left: 59%;
+    transform: translateX(-65%);
 }
+
+.coffeeButton{
+    position: absolute;
+    top: 2310px;
+    left: 59%;
+    transform: translateX(-65%);
+}
+
 .aboutImages{
     width:150px; 
     height:150px; 
@@ -11767,3 +11777,8 @@ img.petshop{
     margin-left: 10px;
 }
 
+.loggedOut{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
