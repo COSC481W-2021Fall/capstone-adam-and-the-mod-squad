@@ -41,24 +41,8 @@ class dashboard(LoginRequiredMixin, ListView):
             #handling the tasks
             if 'addTask' in request.POST:
                 form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
-            
                 form.save()
                 self.calculate(request)
-                # allTasks = Task.objects.filter(user=request.user, created__date=date.today())
-                # allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today())
-                # allCompleteTasks = Task.objects.filter(user=request.user, created__date=date.today(), complete=1)
-                # allCompleteHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today(), complete=1)
-                # numOfTasksHabits = len(allTasks) + len(allHabits)
-                # numOfCompleteTasksHabits = len(allCompleteTasks) + len(allCompleteHabits)
-                # print("\n\n")
-                # print("Number of tasks TODAY: "+str(len(allTasks)))
-                # print("Number of habits TODAY: "+str(len(allHabits)))
-                # print("Number of completed tasks TODAY: "+str(len(allCompleteTasks)))
-                # print("Number of completed habits: "+str(len(allCompleteHabits)))
-                # print("\n\n")
-                # print(numOfTasksHabits)
-                # print(numOfCompleteTasksHabits)
-                
                 
             if 'completeTask' in request.POST:
                 print(request.POST)
@@ -68,29 +52,12 @@ class dashboard(LoginRequiredMixin, ListView):
                 else:
                     queriedTask.complete = 1
                 queriedTask.save()
-
-                #Calculate
-                allTasks = Task.objects.filter(user=request.user, created__date=date.today())
-                allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today())
-                allCompleteTasks = Task.objects.filter(user=request.user, created__date=date.today(), complete=1)
-                allCompleteHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today(), complete=1)
-                numOfTasksHabits = len(allTasks) + len(allHabits)
-                numOfCompleteTasksHabits = len(allCompleteTasks) + len(allCompleteHabits)
-                percentage = round(numOfCompleteTasksHabits / numOfTasksHabits * 100)
-                print("\n\n")
-                print(percentage)
-                print(request.user.id)
-                print("\n\n")
-                # player_form = MuninnPlayer(total_points=0, daily_points=0, money=0, playerid=player, last_day_updates=date.today())
-                queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-                
-                queriedUser.daily_points = percentage
-                queriedUser.save()
-
+                self.calculate(request)
 
             if 'deleteTask' in request.POST:
                     queriedTask = Task.objects.get(pk=request.POST.get('delete-hidden'))
                     queriedTask.delete()
+                    self.calculate(request)
                     return redirect('muninn-dashboard')
                     
             #handling the Habits       
@@ -104,6 +71,7 @@ class dashboard(LoginRequiredMixin, ListView):
                 form2=MuninnDailyHabits(title=request.POST.get('habit'), date=date.today(), user=request.user, master_habit=form1)
                 print(form1.id)
                 form2.save()
+                self.calculate(request)
             if 'completeHabit' in request.POST:
                 print(request.POST)
                 queriedTask = MuninnDailyHabits.objects.get(pk=request.POST.get('hidden-completeHabit'))
@@ -112,30 +80,14 @@ class dashboard(LoginRequiredMixin, ListView):
                 else:
                     queriedTask.complete = True
                 queriedTask.save()
-
-                #Calculate
-                allTasks = Task.objects.filter(user=request.user, created__date=date.today())
-                allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today())
-                allCompleteTasks = Task.objects.filter(user=request.user, created__date=date.today(), complete=1)
-                allCompleteHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today(), complete=1)
-                numOfTasksHabits = len(allTasks) + len(allHabits)
-                numOfCompleteTasksHabits = len(allCompleteTasks) + len(allCompleteHabits)
-                percentage = round(numOfCompleteTasksHabits / numOfTasksHabits * 100)
-                print("\n\n")
-                print(percentage)
-                print("\n\n")
-                # player_form = MuninnPlayer(total_points=0, daily_points=0, money=0, playerid=player, last_day_updates=date.today())
-                queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-                queriedUser.daily_points = percentage
-                queriedUser.save()
-                
-
+                self.calculate(request)
 
             if 'deleteHabit' in request.POST:
                     queriedDailyHabit = MuninnDailyHabits.objects.get(pk=request.POST.get('delete-hidden-habit'))
                     queriedDailyHabit.master_habit.delete()
                     #queriedMasterHabit = MuninnMasterHabits.objects.get(id=request.POST.get(queriedDailyHabit.master_habit.id))
                     queriedDailyHabit.delete()
+                    self.calculate(request)
                     return redirect('muninn-dashboard')
             return redirect('muninn-dashboard')
         except Exception :
@@ -159,10 +111,11 @@ class dashboard(LoginRequiredMixin, ListView):
         print(request.user)
         print(request.user.id)
         print(date.today())
-        allTasks = Task.objects.filter(user=request.user, created__date=date.today())
+        allTasks = Task.objects.filter(user=request.user, created=date.today())
+        # allTasks = Task.objects.filter(user=request.user)
         print(allTasks)
         allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today())
-        allCompleteTasks = Task.objects.filter(user=request.user, created__date=date.today(), complete=1)
+        allCompleteTasks = Task.objects.filter(user=request.user, created=date.today(), complete=1)
         allCompleteHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today(), complete=1)
         numOfTasksHabits = len(allTasks) + len(allHabits)
         numOfCompleteTasksHabits = len(allCompleteTasks) + len(allCompleteHabits)
@@ -173,7 +126,6 @@ class dashboard(LoginRequiredMixin, ListView):
         print("Number of completed habits: "+str(len(allCompleteHabits)))
         print("\n\n")
         print(percentage)
-        # queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-        
-        # queriedUser.daily_points = percentage
-        # queriedUser.save()
+        queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
+        queriedUser.daily_points = percentage
+        queriedUser.save()
