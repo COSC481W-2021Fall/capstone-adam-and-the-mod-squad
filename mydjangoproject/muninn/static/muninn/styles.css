@@ -18,8 +18,6 @@
     margin: 30px;
 }
 
-
-
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
@@ -4484,6 +4482,7 @@ fieldset:disabled .btn {
     font-size: 1.25rem;
     text-decoration: none;
     white-space: nowrap;
+    font-family: "Roboto Slab", sans-serif;
 }
 
 .navbar-nav {
@@ -8592,7 +8591,7 @@ fieldset:disabled .btn {
 
 .bg-dark {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+    background-color: #0E0D18 !important;
 }
 
 .bg-black {
@@ -11458,40 +11457,40 @@ body {
 }
 
 .sb-sidenav-dark {
-    background-color: #212529;
-    color: rgba(255, 255, 255, 0.5);
+    background-color: #0E0D18;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-    color: rgba(255, 255, 255, 0.25);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-    color: rgba(255, 255, 255, 0.5);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-    color: rgba(255, 255, 255, 0.25);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-    color: rgba(255, 255, 255, 0.25);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-    color: #fff;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
-    color: #fff;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-    color: #fff;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-footer {
-    background-color: #343a40;
+    background-color: #292738;
 }
 
 .sb-sidenav-light {
@@ -11697,9 +11696,11 @@ body {
     border-radius: 0.25rem !important;
 }
 
+
 /* Start of code written by us*/
+
 .home-page {
-    margin:100px;
+    margin: 100px;
 }
 
 #login {
@@ -11711,48 +11712,51 @@ body {
     margin-left: 70px;
 }
 
-img.petshop{
-    height:250px;
-    position:relative;
-    left:.5cm;
-    
+img.petshop {
+    height: 250px;
+    position: relative;
+    left: .5cm;
 }
+
 #homeLogo {
     width: 500px;
     height: 500px;
     margin-top: -130px;
-    margin-left: 160px;
+    margin-left: 130px;
     float: left;
 }
 
 #homeText {
     margin-top: 250px;
     font-size: 150px;
+    font-family: "Roboto Slab", sans-serif;
 }
 
-.psp-card{
+.psp-card {
     background-color: #EA9619;
-    border-radius:18px;
-    border-style:groove;
-    border-color:#FDC764;
+    border-radius: 18px;
+    border-style: groove;
+    border-color: #FDC764;
     height: 4.5in;
-    width:3.5in;
+    width: 3.5in;
 }
-.psp-card-inner{
-    font-size:22pt;
-    border-radius:18px;
+
+.psp-card-inner {
+    font-size: 22pt;
+    border-radius: 18px;
     background-color: #FEE0AA;
     height: 3.5in;
 }
-.psp-info-line{
-    padding:8px;
-    font-weight:bold;
-    margin:auto;
-    position:relative;
-    left:18px;
+
+.psp-info-line {
+    padding: 8px;
+    font-weight: bold;
+    margin: auto;
+    position: relative;
+    left: 18px;
 }
 
-#aboutPageBackground{
+#aboutPageBackground {
     width: 50%;
     min-width: 600px;
     height: 100%;
@@ -11760,16 +11764,16 @@ img.petshop{
     background-color: #A14D39;
 }
 
-#registerToday{
-    width:90%;
-    min-width:900px;
+#registerToday {
+    width: 90%;
+    min-width: 900px;
     height: 100%;
     min-height: 300px;
     margin-left: 11px;
     background-color: #FDC764;
 }
 
-.aboutContainer{
+.aboutContainer {
     background-color: #FDC764;
     border: 5px solid #A14D39;
     width: 1000px;
@@ -11777,30 +11781,38 @@ img.petshop{
     color: #171527;
 }
 
-.aboutButton{
+.aboutButton {
     position: absolute;
     top: 305px;
     left: 59%;
     transform: translateX(-65%);
 }
 
-.coffeeButton{
+.coffeeButton {
     position: absolute;
     top: 2310px;
     left: 59%;
     transform: translateX(-65%);
 }
 
-.aboutImages{
-    width:150px; 
-    height:150px; 
-    float:right;
+.aboutImages {
+    width: 150px;
+    height: 150px;
+    float: right;
     margin-top: 20px;
     margin-left: 10px;
 }
 
-.loggedOut{
+.loggedOut {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.nav-link.nav-link:hover {
+    background-color: #FFF3DF;
+}
+
+.dashboard.nav-link.nav-link {
+    background: #B97A6B! important;
 }

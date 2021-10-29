@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'muninn/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
     <link rel="icon" href="{% static 'muninn/images/logo.png' %}"> {% if title %}
     <title>Muninn - {{ title }}</title>
     {% else %}
@@ -54,11 +55,9 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link" href="{% url 'muninn-dashboard' %}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
                         <a class="nav-link" href="{% url 'muninn-pet-shop' %}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Pet Shop
                         </a>
 
