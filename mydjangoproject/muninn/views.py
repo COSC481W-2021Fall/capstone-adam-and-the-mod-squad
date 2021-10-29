@@ -43,6 +43,7 @@ class dashboard(LoginRequiredMixin, ListView):
                 form = Task(title=request.POST.get('task'), created=date.today(), user=request.user)
                 form.save()
                 self.calculate(request)
+                print(levelForPlayer(request))
                 
             if 'completeTask' in request.POST:
                 print(request.POST)
@@ -108,9 +109,9 @@ class dashboard(LoginRequiredMixin, ListView):
         return context
     
     def calculate(self, request):
-        print(request.user)
-        print(request.user.id)
-        print(date.today())
+        print("User name: ",request.user)
+        print("User ID: ", str(request.user.id))
+        print("Date today: ",str(date.today()),"\n")
         allTasks = Task.objects.filter(user=request.user, created=date.today())
         print(allTasks)
         allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today())
@@ -119,12 +120,40 @@ class dashboard(LoginRequiredMixin, ListView):
         numOfTasksHabits = len(allTasks) + len(allHabits)
         numOfCompleteTasksHabits = len(allCompleteTasks) + len(allCompleteHabits)
         percentage = round(numOfCompleteTasksHabits / numOfTasksHabits * 100)
+        todays_tasksAndHabits = len(allTasks)+len(allHabits)
+        completedtodays_tasksAndHabits = len(allCompleteTasks) + len(allCompleteHabits)
         print("Number of tasks TODAY: "+str(len(allTasks)))
         print("Number of habits TODAY: "+str(len(allHabits)))
         print("Number of completed tasks TODAY: "+str(len(allCompleteTasks)))
         print("Number of completed habits: "+str(len(allCompleteHabits)))
-        print("\n\n")
+        print(str(completedtodays_tasksAndHabits),"\ ",str(todays_tasksAndHabits))
         print(percentage)
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
         queriedUser.daily_points = percentage
         queriedUser.save()
+
+@login_required
+def levelForPlayer(request):
+    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
+    pointsForLevel = queriedUser.total_points+queriedUser.daily_points
+    if pointsForLevel <= 75:
+        level = "Level 1"
+    elif pointsForLevel > 75 and pointsForLevel <= 175:
+        level = "Level 2"
+    elif pointsForLevel > 175 and pointsForLevel <= 300:
+        level = "Level 3"
+    elif pointsForLevel > 300 and pointsForLevel <= 450:
+        level = "Level 4"
+    elif pointsForLevel > 450 and pointsForLevel <= 625:
+        level = "Level 5"
+    elif pointsForLevel > 625 and pointsForLevel <= 825:
+        level = "Level 6"
+    elif pointsForLevel > 825 and pointsForLevel <= 1050:
+        level = "Level 7"
+    elif pointsForLevel > 1050 and pointsForLevel <= 1300:
+        level = "Level 8"
+    elif pointsForLevel > 1300 and pointsForLevel <= 1575:
+        level = "Level 9"
+    elif pointsForLevel > 1575 and pointsForLevel <= 1875:
+        level = "Level 10"
+    return level
