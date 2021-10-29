@@ -10,7 +10,7 @@ class Task(models.Model):
 		User, on_delete=models.CASCADE, null=True, blank=True)
 	title = models.CharField(max_length=200)
 	complete = models.BooleanField(default=False)
-	created = models.DateField(auto_now_add=True)
+	created = models.DateField()
 
 	def __str__(self):
 		return self.title
@@ -54,5 +54,6 @@ class MuninnMasterHabits(models.Model):
     created = models.DateField()
     user = models.ForeignKey(User, models.DO_NOTHING)
     title = models.CharField(max_length=200)
+    active = models.BooleanField(default=True)
     class Meta:
         db_table = 'muninn_master_habits'
