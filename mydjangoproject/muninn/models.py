@@ -10,7 +10,7 @@ class Task(models.Model):
 		User, on_delete=models.CASCADE, null=True, blank=True)
 	title = models.CharField(max_length=200)
 	complete = models.BooleanField(default=False)
-	created = models.DateTimeField(auto_now_add=True)
+	created = models.DateField(auto_now_add=True)
 
 	def __str__(self):
 		return self.title
@@ -25,17 +25,16 @@ class Animals(models.Model):
     level = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'animals'
 
 class MuninnPlayer(models.Model):
-    points = models.IntegerField()
+    total_points = models.IntegerField(default=0)
+    daily_points = models.IntegerField(default=0)
     money = models.IntegerField()
     playerid = models.OneToOneField(User, models.DO_NOTHING, db_column='playerID_id')  # Field name made lowercase.
     last_day_updates = models.DateField()
 
     class Meta:
-        managed = False
         db_table = 'muninn_player'
 
 class MuninnDailyHabits(models.Model):
@@ -47,15 +46,13 @@ class MuninnDailyHabits(models.Model):
     title = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
         db_table = 'muninn_daily_habits'
 
 
 class MuninnMasterHabits(models.Model):
     id = models.BigAutoField(primary_key=True)
-    created = models.DateTimeField(date.today())
+    created = models.DateField()
     user = models.ForeignKey(User, models.DO_NOTHING)
     title = models.CharField(max_length=200)
     class Meta:
-        managed = False
         db_table = 'muninn_master_habits'
