@@ -36,7 +36,6 @@ class dashboard(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
     def post(self, request, *args, **kwargs):
-        # ^ ALL OF THIS NEEDS TO BE RESET DAILY
         try:
             #handling the tasks
             if 'addTask' in request.POST:
@@ -112,7 +111,6 @@ class dashboard(LoginRequiredMixin, ListView):
         print(request.user.id)
         print(date.today())
         allTasks = Task.objects.filter(user=request.user, created=date.today())
-        # allTasks = Task.objects.filter(user=request.user)
         print(allTasks)
         allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today())
         allCompleteTasks = Task.objects.filter(user=request.user, created=date.today(), complete=1)
