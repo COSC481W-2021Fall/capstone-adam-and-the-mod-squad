@@ -54,5 +54,6 @@ class MuninnMasterHabits(models.Model):
     created = models.DateField()
     user = models.ForeignKey(User, models.DO_NOTHING)
     title = models.CharField(max_length=200)
+    active = models.BooleanField(default=True)
     class Meta:
         db_table = 'muninn_master_habits'

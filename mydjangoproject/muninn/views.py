@@ -6,8 +6,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
+from .functions import dailyReset, levelForPlayer, fakeDate
 import traceback
-
 
 def home(request):
     return render(request, 'muninn/home.html')
@@ -36,13 +36,12 @@ def statistics(request):
 class dashboard(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
+    
     def post(self, request, *args, **kwargs):
         try:
             #handling the tasks
             if 'addTask' in request.POST:
-                oldDate = date.today() + timedelta(days=-1)
-                print(oldDate)
-                form = Task(title=request.POST.get('task'), created=oldDate, user=request.user)
+                form = Task(title=request.POST.get('task'), created=fakeDate, user=request.user)
                 form.save()
                 self.calculate(request)
                 print(levelForPlayer(request))
@@ -64,14 +63,12 @@ class dashboard(LoginRequiredMixin, ListView):
                     
             #handling the Habits       
             if 'addHabit' in request.POST:
-                oldDate = date.today() + timedelta(days=-1)
-                print(oldDate)
                 #Master List
-                form1 = MuninnMasterHabits(title=request.POST.get('habit'), created=oldDate, user=request.user)
+                form1 = MuninnMasterHabits(title=request.POST.get('habit'), created=fakeDate, user=request.user)
                 form1.save()
                 #Daily List
                 
-                form2=MuninnDailyHabits(title=request.POST.get('habit'), date=oldDate, user=request.user, master_habit=form1)
+                form2=MuninnDailyHabits(title=request.POST.get('habit'), date=fakeDate, user=request.user, master_habit=form1)
                 form2.save()
                 self.calculate(request)
             if 'completeHabit' in request.POST:
@@ -85,7 +82,8 @@ class dashboard(LoginRequiredMixin, ListView):
 
             if 'deleteHabit' in request.POST:
                     queriedDailyHabit = MuninnDailyHabits.objects.get(pk=request.POST.get('delete-hidden-habit'))
-                    queriedDailyHabit.master_habit.delete()
+                    queriedDailyHabit.master_habit.active = 0
+                    queriedDailyHabit.master_habit.save()
                     #queriedMasterHabit = MuninnMasterHabits.objects.get(id=request.POST.get(queriedDailyHabit.master_habit.id))
                     queriedDailyHabit.delete()
                     self.calculate(request)
@@ -95,10 +93,11 @@ class dashboard(LoginRequiredMixin, ListView):
             print(traceback.format_exc())
             return redirect('muninn-dashboard')
     def get_context_data(self, **kwargs):
+        dailyReset(self.request)
         context = super().get_context_data(**kwargs)
-        context['tasks'] = context['tasks'].filter(user=self.request.user, created=date.today())
+        context['tasks'] = context['tasks'].filter(user=self.request.user, created=fakeDate)
         context['count'] = context['tasks'].filter(complete=False).count()
-        context['habits'] = MuninnDailyHabits.objects.filter(user_id__exact=self.request.user.id, date=date.today())
+        context['habits'] = MuninnDailyHabits.objects.filter(user_id__exact=self.request.user.id, date=fakeDate)
         search_input = self.request.GET.get('search-area') or ''
         if search_input:
             context['tasks'] = context['tasks'].filter(
@@ -109,10 +108,10 @@ class dashboard(LoginRequiredMixin, ListView):
         return context
     
     def calculate(self, request):
-        allTasks = Task.objects.filter(user=request.user, created=date.today())
-        allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today())
-        allCompleteTasks = Task.objects.filter(user=request.user, created=date.today(), complete=1)
-        allCompleteHabits = MuninnDailyHabits.objects.filter(user=request.user, date=date.today(), complete=1)
+        allTasks = Task.objects.filter(user=request.user, created=fakeDate)
+        allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=fakeDate)
+        allCompleteTasks = Task.objects.filter(user=request.user, created=fakeDate, complete=1)
+        allCompleteHabits = MuninnDailyHabits.objects.filter(user=request.user, date=fakeDate, complete=1)
         numOfTasksHabits = len(allTasks) + len(allHabits)
         numOfCompleteTasksHabits = len(allCompleteTasks) + len(allCompleteHabits)
         percentage = round(numOfCompleteTasksHabits / numOfTasksHabits * 100)
@@ -120,28 +119,4 @@ class dashboard(LoginRequiredMixin, ListView):
         queriedUser.daily_points = percentage
         queriedUser.save()
 
-@login_required
-def levelForPlayer(request):
-    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-    pointsForLevel = queriedUser.total_points+queriedUser.daily_points
-    if pointsForLevel <= 75:
-        level = "Level 1"
-    elif pointsForLevel > 75 and pointsForLevel <= 175:
-        level = "Level 2"
-    elif pointsForLevel > 175 and pointsForLevel <= 300:
-        level = "Level 3"
-    elif pointsForLevel > 300 and pointsForLevel <= 450:
-        level = "Level 4"
-    elif pointsForLevel > 450 and pointsForLevel <= 625:
-        level = "Level 5"
-    elif pointsForLevel > 625 and pointsForLevel <= 825:
-        level = "Level 6"
-    elif pointsForLevel > 825 and pointsForLevel <= 1050:
-        level = "Level 7"
-    elif pointsForLevel > 1050 and pointsForLevel <= 1300:
-        level = "Level 8"
-    elif pointsForLevel > 1300 and pointsForLevel <= 1575:
-        level = "Level 9"
-    elif pointsForLevel > 1575 and pointsForLevel <= 1875:
-        level = "Level 10"
-    return level
+
