@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="sb-nav-fixed">
+<body class="sb-nav-fixed" onload="changeNavBar()" id="bodyStyle">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="{% url 'muninn-home' %}">Muninn</a>
@@ -54,10 +54,10 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading"></div>
-                        <a class="nav-link" href="{% url 'muninn-dashboard' %}">
+                        <a class="nav-link" id="dashboard" href="{% url 'muninn-dashboard' %}">
                             Dashboard
                         </a>
-                        <a class="nav-link" href="{% url 'muninn-pet-shop' %}">
+                        <a class="nav-link" id="petStore" href="{% url 'muninn-pet-shop' %}">
                             Pet Shop
                         </a>
 
@@ -116,6 +116,27 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
             <script src="{% static 'muninn/datatables-simple-demo.js' %}"></script>
+            <script>
+                function changeNavBar() {
+                    var dashboard = document.getElementById("dashboard");
+                    var petStore = document.getElementById("petStore");
+                    var bodyStyle = document.getElementById("bodyStyle");
+                    var url = window.location;
+                    console.log(url);
+
+                    if (String(url).includes("dashboard")) {
+                        dashboard.style.backgroundColor = "#A14D39";
+                        dashboard.style.color = "#FFF3DF";
+                    }
+                    if (String(url).includes("pet_shop")) {
+                        petStore.style.backgroundColor = "#A14D39";
+                        petStore.style.color = "#FFF3DF";
+                    }
+                    if (String(url).includes("home")) {
+                        bodyStyle.style.backgroundColor = "#F6D4A1";
+                    }
+                }
+            </script>
 
 </body>
 

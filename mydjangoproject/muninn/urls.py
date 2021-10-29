@@ -5,6 +5,7 @@ from .views import dashboard
 
 urlpatterns = [
     path('', views.home, name='muninn-home'),
+    path('home', views.home, name='muninn-home'),
     path('dashboard', dashboard.as_view(), name='muninn-dashboard'),
     path('pet-shop', views.petshop, name='muninn-pet-shop'),
     path('roost', views.roost, name='muninn-roost'),
