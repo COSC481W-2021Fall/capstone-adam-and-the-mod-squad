@@ -1,6 +1,6 @@
 {% extends "muninn/base.html" %} 
 {% block content %}
-<div class="basic-margin">
+<div class="dashboard-margin">
 <h1 class="mt-4">Dashboard</h1>
 <div class="row">
     <div class="col-xl-6 float-start">
@@ -17,17 +17,15 @@
                             <form method="POST" action="">
                                 {% csrf_token %}
                                 <input hidden value="{{ task.id }}" name="hidden-completeTask">
-                                <input type="submit" name="completeTask" value="X" style="background-color: {% if task.complete == 1 %}green {%else%} red {% endif %}">
+                                <input type="submit" name="completeTask" value=" {{ task.title }}" class="task-btn" style="background-color: {% if task.complete == 1 %}#FCAE1E {%else%} #FEE0AA {% endif %}">
                             </form>
                             </td>
-                            <td>
-                            <label for="completeTask">{{ task.title }}</label>
-                        </td>
+                            
                         <td>
                             <form method="POST" action="">
                                 {% csrf_token %}
                                 <input hidden name="delete-hidden" value="{{ task.id }}">
-                                <input type="submit" name="deleteTask" value="delete">
+                                <input type="submit" class="delete-btn" name="deleteTask" value="delete">
                             </form>
                             </td>
                         </tr>
@@ -42,7 +40,7 @@
                     {{form.as_p}}
 
                     <input type="text" id="task" name="task">
-                    <input type="submit" name="addTask" value="Add Task">
+                    <input type="submit" class="add-btn" name="addTask" value="Add Task">
                 </form>
             </div>
         </div>
@@ -60,17 +58,16 @@
                             <form method="POST" action="">
                                 {% csrf_token %}
                                 <input hidden value="{{ habit.id }}" name="hidden-completeHabit">
-                                <input type="submit" name="completeHabit" value="X"  style="background-color: {% if habit.complete == True %}green {%else%} red {% endif %}">
+                                <input type="submit" name="completeHabit" value=" {{ habit.title }}" class="task-btn" style="background-color: {% if habit.complete == 1 %}#FCAE1E {%else%} #FEE0AA {% endif %}">
                             </form>
                             </td>
                             <td>
-                            <label for="completeHabit">{{ habit.title }}</label>
                         </td>
                         <td>
                             <form method="POST" action="">
                                 {% csrf_token %}
                                 <input hidden name="delete-hidden-habit" value="{{ habit.id }}">
-                                <input type="submit" name="deleteHabit" value="delete">
+                                <input type="submit" name="deleteHabit" class="delete-btn" value="delete">
                             </form>
                             </td>
                         </tr>
@@ -83,7 +80,7 @@
                     {% csrf_token %}
 
                     <input type="text" id="habit" name="habit">
-                    <input type="submit" name="addHabit" value="Add Habit">
+                    <input type="submit" class="add-btn" name="addHabit" value="Add Habit">
                 </form>
             </div>
             </div>
