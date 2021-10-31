@@ -24,3 +24,14 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+function loginSuccess(){
+    var text = document.getElementById("alertMsg");
+    text.style.display="Successfully logged in!";
+    //text.style.display="none";
+    window.setTimeout(text.style.display="none" ,5000);
+}
+
+function acctSuccess(){
+    alert("Account successfully created!");
+}

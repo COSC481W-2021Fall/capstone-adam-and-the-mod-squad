@@ -11826,3 +11826,7 @@ img.petshop{
     height: 220px;
     color: #171527;
 }
+
+#alertMsg{
+    color: red;
+}

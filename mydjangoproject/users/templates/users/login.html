@@ -1,4 +1,5 @@
 {% extends "muninn/base.html"%} {% block content %}
+{% load static %}
 <div id="login">
     <h1 class="loginText">Log In </h1>
     <br>
@@ -8,7 +9,7 @@
             <fieldset class='form-group'>
                 {{ form.as_p }}
 
-                <button type="submit" class="loginText">Login</button>
+                <button type="submit" class="loginText" onclick="loginSuccess()">Login</button>
 
             </fieldset>
         </form>
