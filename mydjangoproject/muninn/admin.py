@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Task, Animals
+from .models import Task, Animals, MuninnPlayer, MuninnDailyHabits, MuninnMasterHabits
 # from .models import MuninnUserv2 (EXAMPLE)
 # admin.site.register(MuninnUserv2)
 
@@ -7,3 +7,6 @@ from .models import Task, Animals
 
 admin.site.register(Task)
 admin.site.register(Animals)
+admin.site.register(MuninnPlayer)
+admin.site.register(MuninnDailyHabits)
+admin.site.register(MuninnMasterHabits)
