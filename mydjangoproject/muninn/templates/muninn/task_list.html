@@ -1,7 +1,19 @@
 {% extends "muninn/base.html" %} 
+{% load static %}
 {% block content %}
 <div class="basic-margin">
 <h1 class="mt-4">Dashboard</h1>
+<div class="row">
+    <div class="container pt-3 my-4 dashContainer">
+        <div class="progress" style="height:30px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 20%; height:30px"></div>
+        </div>
+        <img src="{% static 'muninn/images/Chiara.png' %}" class="rounded dashboardImg" style="float:right">
+        <div class="progressText" style="clear: right">
+            <b>Level:</b> 1 <br><b>Gold:</b> 100 <br><b>XP:</b> 100
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-xl-6 float-start">
         <div class="card mb-4">

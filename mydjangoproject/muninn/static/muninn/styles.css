@@ -5602,7 +5602,7 @@ fieldset:disabled .btn {
     color: #fff;
     text-align: center;
     white-space: nowrap;
-    background-color: #0d6efd;
+    background-color: #1C0CB1;
     transition: width 0.6s ease;
 }
 
@@ -11803,4 +11803,26 @@ img.petshop{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.progressText{
+    font-size: x-large;
+    color: #A14D39;
+    position: absolute;
+    top: 185px;
+}
+
+.dashboardImg{
+    width:150px; 
+    height:150px; 
+    float:right;
+    margin-left: 10px;
+}
+
+.dashContainer{
+    background-color: #FDC764;
+    border: 5px solid #A14D39;
+    width: 1000px;
+    height: 220px;
+    color: #171527;
 }
