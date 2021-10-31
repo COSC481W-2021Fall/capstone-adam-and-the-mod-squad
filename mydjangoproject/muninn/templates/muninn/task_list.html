@@ -10,7 +10,7 @@
         </div>
         <img src="{% static 'muninn/images/Chiara.png' %}" class="rounded dashboardImg" style="float:right">
         <div class="progressText" style="clear: right">
-            <b>Level:</b> 1 <br><b>Gold:</b> 100 <br><b>XP:</b> 100
+            <p><b>Level:</b> 1 <br><b>Gold:</b> 100 <br><b>XP:</b> 100</p>
         </div>
     </div>
 </div>
@@ -101,7 +101,10 @@
             </div>
         </div>
     </div>
-    <h5 class="basic-margin" id="alertMsg" onload="loginSuccess()"></h5>
+    <div class="alert alert-success" id="alertMsg">
+        <strong>Successfully logged in!</strong>
+    </div>
+    <script>setTimeout("loginSuccess();",5000)</script>
 </div>
 </div>
 {% endblock content %}

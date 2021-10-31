@@ -9,7 +9,7 @@
             <fieldset class='form-group'>
                 {{ form.as_p }}
 
-                <button type="submit" class="loginText" onclick="loginSuccess()">Login</button>
+                <button type="submit" class="loginText">Login</button>
 
             </fieldset>
         </form>
@@ -19,5 +19,9 @@
     </div>
     <br>
     <input type="button" onclick="location.href='../../';" class="loginText" value="Quit" />
+    <div class="alert alert-success" id="alertMsg">
+        <strong>Successfully logged in!</strong>
+    </div>
+    <script>setTimeout("loginSuccess();",5000)</script>
 </div>
 {% endblock content %}
