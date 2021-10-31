@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
 from .functions import dailyReset, levelForPlayer, fakeDate
 import traceback
+import numpy as np
 
 def home(request):
     return render(request, 'muninn/home.html')
@@ -120,3 +121,31 @@ class dashboard(LoginRequiredMixin, ListView):
         queriedUser.save()
 
 
+@login_required
+def levelForPlayer(request):
+    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
+    pointsForLevel = queriedUser.total_points+queriedUser.daily_points
+    level = "Level " + str(int((np.log(pointsForLevel))/((300/pointsForLevel) + 1)+1))
+    # level = "Level "+str(int(np.log(pointsForLevel) - 1))
+
+    # if pointsForLevel <= 75:
+    #     level = "Level 1"
+    # elif pointsForLevel > 75 and pointsForLevel <= 175:
+    #     level = "Level 2"
+    # elif pointsForLevel > 175 and pointsForLevel <= 300:
+    #     level = "Level 3"
+    # elif pointsForLevel > 300 and pointsForLevel <= 450:
+    #     level = "Level 4"
+    # elif pointsForLevel > 450 and pointsForLevel <= 625:
+    #     level = "Level 5"
+    # elif pointsForLevel > 625 and pointsForLevel <= 825:
+    #     level = "Level 6"
+    # elif pointsForLevel > 825 and pointsForLevel <= 1050:
+    #     level = "Level 7"
+    # elif pointsForLevel > 1050 and pointsForLevel <= 1300:
+    #     level = "Level 8"
+    # elif pointsForLevel > 1300 and pointsForLevel <= 1575:
+    #     level = "Level 9"
+    # elif pointsForLevel > 1575 and pointsForLevel <= 1875:
+    #     level = "Level 10"
+    return level
