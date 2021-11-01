@@ -105,11 +105,13 @@
                 {% endif %}
             </nav>
         </div>
+
     
     <div id="layoutSidenav_content">
         {% endif %}
         <main>
             <div class="main-content">
+                {% include 'muninn/message.html' %}
                 {% block content %}{% endblock %}
             </div>
         </main>
@@ -138,6 +140,7 @@
                 petStore.style.color = "#FFF3DF";
             }
         }
+
 
     </script>
 </body>

@@ -24,3 +24,16 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+function loginSuccess(){
+    var text = document.getElementById("alertMsg");
+    text.style.display="none";
+}
+function register(){
+    console.log("event triggered");
+    document.getElementById("alertMsg").innerHTML="<strong>Successfully created an account</strong>";
+}
+
+function acctSuccess(){
+    alert("Account successfully created!");
+}

@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
 from .functions import dailyReset, levelForPlayer, fakeDate
 import traceback
+from django.contrib import messages
 import numpy as np
 
 def home(request):
