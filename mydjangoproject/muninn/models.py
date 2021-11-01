@@ -10,6 +10,7 @@ class Task(models.Model):
 		User, on_delete=models.CASCADE, null=True, blank=True)
 	title = models.CharField(max_length=200)
 	complete = models.BooleanField(default=False)
+	created = models.DateField(auto_now_add=True)
 	created = models.DateField()
 
 	def __str__(self):
@@ -51,6 +52,7 @@ class MuninnDailyHabits(models.Model):
 
 class MuninnMasterHabits(models.Model):
     id = models.BigAutoField(primary_key=True)
+    created = models.DateField(date.today())
     created = models.DateField()
     user = models.ForeignKey(User, models.DO_NOTHING)
     title = models.CharField(max_length=200)

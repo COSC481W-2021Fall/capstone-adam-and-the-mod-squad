@@ -13,12 +13,77 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+.task-btn {
 
-.basic-margin {
-    margin: 30px;
+min-width: 300px;
 }
 
+ .task-btn, .add-btn, .delete-btn{
+    font-family: "Roboto Slab", sans-serif;
+    padding-left: 10px;
+     margin: 5px;
+     text-align: left;
+    color: #212529;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 2px solid #993E28;
+    padding: 2px;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+ }
 
+ .task-btn:hover,
+ .add-btn:hover,
+ .delete-btn:hover{
+    box-shadow: 0 0 0 0.25rem #E88D05;
+}
+
+.add-btn {
+
+}
+.delete-btn {
+
+}
+ 
+
+.dashboard-margin {
+    margin: 20px;
+}
+.basic-margin {
+    margin: 80px 30px;
+}
+.home-page {
+    width: 100%;
+    height: 100%;
+background-color: #FFF3DF;
+margin: 0;
+}
+.main-content {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+.rightImg {
+    max-height: 50vh;
+    max-width: 40vw;
+    position:absolute;
+    right: 0;
+    bottom: 0;
+}
+.leftImg {
+    max-height: 50vh;
+    max-width: 40vw;
+    position:absolute;
+    left: 0;
+    bottom: 0;
+}
 
 :root {
     --bs-blue: #0d6efd;
@@ -4484,6 +4549,7 @@ fieldset:disabled .btn {
     font-size: 1.25rem;
     text-decoration: none;
     white-space: nowrap;
+    font-family: "Roboto Slab", sans-serif;
 }
 
 .navbar-nav {
@@ -8592,7 +8658,7 @@ fieldset:disabled .btn {
 
 .bg-dark {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+    background-color: #0E0D18 !important;
 }
 
 .bg-black {
@@ -11458,40 +11524,41 @@ body {
 }
 
 .sb-sidenav-dark {
-    background-color: #212529;
-    color: rgba(255, 255, 255, 0.5);
+    background-color: #0E0D18;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-    color: rgba(255, 255, 255, 0.25);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-    color: rgba(255, 255, 255, 0.5);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-    color: rgba(255, 255, 255, 0.25);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-    color: rgba(255, 255, 255, 0.25);
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-    color: #fff;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
-    color: #fff;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-    color: #fff;
+    color: #5F5D6A;
 }
 
 .sb-sidenav-dark .sb-sidenav-footer {
-    background-color: #343a40;
+    background-color: #292738;
+    color: #FFF3DF;
 }
 
 .sb-sidenav-light {
@@ -11697,10 +11764,9 @@ body {
     border-radius: 0.25rem !important;
 }
 
+
 /* Start of code written by us*/
-.home-page {
-    margin:100px;
-}
+
 
 #login {
     margin-top: 200px;
@@ -11711,48 +11777,52 @@ body {
     margin-left: 70px;
 }
 
-img.petshop{
-    height:250px;
-    position:relative;
-    left:.5cm;
-    
+img.petshop {
+    height: 250px;
+    position: relative;
+    left: .5cm;
 }
+
 #homeLogo {
-    width: 500px;
-    height: 500px;
-    margin-top: -130px;
-    margin-left: 160px;
-    float: left;
+    width: 20vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
 }
 
 #homeText {
-    margin-top: 250px;
-    font-size: 150px;
+    font-size: 120px;
+    font-family: "Roboto Slab", sans-serif;
+    color: #292738;
+    padding: 20px 60px;
+    border-radius: 20px;
 }
 
-.psp-card{
+.psp-card {
     background-color: #EA9619;
-    border-radius:18px;
-    border-style:groove;
-    border-color:#FDC764;
+    border-radius: 18px;
+    border-style: groove;
+    border-color: #FDC764;
     height: 4.5in;
-    width:3.5in;
+    width: 3.5in;
 }
-.psp-card-inner{
-    font-size:22pt;
-    border-radius:18px;
+
+.psp-card-inner {
+    font-size: 22pt;
+    border-radius: 18px;
     background-color: #FEE0AA;
     height: 3.5in;
 }
-.psp-info-line{
-    padding:8px;
-    font-weight:bold;
-    margin:auto;
-    position:relative;
-    left:18px;
+
+.psp-info-line {
+    padding: 8px;
+    font-weight: bold;
+    margin: auto;
+    position: relative;
+    left: 18px;
 }
 
-#aboutPageBackground{
+#aboutPageBackground {
     width: 50%;
     min-width: 600px;
     height: 100%;
@@ -11760,16 +11830,16 @@ img.petshop{
     background-color: #A14D39;
 }
 
-#registerToday{
-    width:90%;
-    min-width:900px;
+#registerToday {
+    width: 90%;
+    min-width: 900px;
     height: 100%;
     min-height: 300px;
     margin-left: 11px;
     background-color: #FDC764;
 }
 
-.aboutContainer{
+.aboutContainer {
     background-color: #FDC764;
     border: 5px solid #A14D39;
     width: 1000px;
@@ -11777,32 +11847,51 @@ img.petshop{
     color: #171527;
 }
 
-.aboutButton{
+.aboutButton {
     position: absolute;
     top: 305px;
     left: 59%;
     transform: translateX(-65%);
 }
 
-.coffeeButton{
+.coffeeButton {
     position: absolute;
     top: 2310px;
     left: 59%;
     transform: translateX(-65%);
 }
 
-.aboutImages{
-    width:150px; 
-    height:150px; 
-    float:right;
+.aboutImages {
+    width: 150px;
+    height: 150px;
+    float: right;
     margin-top: 20px;
     margin-left: 10px;
 }
 
-.loggedOut{
+.loggedOut {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.nav-link.nav-link:hover {
+    background-color: #FFF3DF;
+}
+
+.dashboard.nav-link.nav-link {
+    background: #B97A6B! important;
+}
+
+.titleText {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    height: 100%;
+}
+
+.other {
+    display: block;
 }
 
 .progressText{
