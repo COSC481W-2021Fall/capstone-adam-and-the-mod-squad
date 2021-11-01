@@ -21,7 +21,7 @@ min-width: 300px;
  .task-btn, .add-btn, .delete-btn{
     font-family: "Roboto Slab", sans-serif;
     padding-left: 10px;
-     margin: 5px;
+    margin: 5px;
      text-align: left;
     color: #212529;
     text-decoration: none;
@@ -41,7 +41,7 @@ min-width: 300px;
 
  .task-btn:hover,
  .add-btn:hover,
- .delete-btn:hover{
+ .delete-btn:hover {
     box-shadow: 0 0 0 0.25rem #E88D05;
 }
 
@@ -61,7 +61,8 @@ min-width: 300px;
 }
 .home-page {
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    position: relative;
 background-color: #FFF3DF;
 margin: 0;
 }
@@ -5534,6 +5535,7 @@ fieldset:disabled .btn {
 .alert {
     position: relative;
     padding: 1rem 1rem;
+    margin-top: 60px;
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
@@ -11849,14 +11851,14 @@ img.petshop {
 
 .aboutButton {
     position: absolute;
-    top: 305px;
+    top: 355px;
     left: 59%;
     transform: translateX(-65%);
 }
 
 .coffeeButton {
     position: absolute;
-    top: 2310px;
+    top: 2360px;
     left: 59%;
     transform: translateX(-65%);
 }
