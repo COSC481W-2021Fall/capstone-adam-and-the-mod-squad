@@ -9,19 +9,15 @@
             <fieldset class='form-group'>
                 {{ form.as_p }}
 
-                <button type="submit" class="loginText">Login</button>
+                <button type="submit" class="loginText" id="loginBtn">Login</button>
 
             </fieldset>
         </form>
     </div>
-    <div class="alert-alert-{{ message.tags }}">
-        {{ message }}
-    </div>
+    
     <br>
     <input type="button" onclick="location.href='../../';" class="loginText" value="Quit" />
-    <div class="alert alert-success" id="alertMsg">
-        <strong>Successfully logged in!</strong>
-    </div>
-    <script>setTimeout("loginSuccess();",5000)</script>
 </div>
+
+
 {% endblock content %}
