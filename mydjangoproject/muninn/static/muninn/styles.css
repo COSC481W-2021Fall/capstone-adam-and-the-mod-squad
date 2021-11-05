@@ -13,16 +13,18 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-.task-btn {
 
-min-width: 300px;
+.task-btn {
+    min-width: 300px;
 }
 
- .task-btn, .add-btn, .delete-btn{
+.task-btn,
+.add-btn,
+.delete-btn {
     font-family: "Roboto Slab", sans-serif;
     padding-left: 10px;
     margin: 5px;
-     text-align: left;
+    text-align: left;
     color: #212529;
     text-decoration: none;
     vertical-align: middle;
@@ -37,51 +39,52 @@ min-width: 300px;
     font-size: 1rem;
     border-radius: 0.25rem;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
- }
+}
 
- .task-btn:hover,
- .add-btn:hover,
- .delete-btn:hover {
+.task-btn:hover,
+.add-btn:hover,
+.delete-btn:hover {
     box-shadow: 0 0 0 0.25rem #E88D05;
 }
 
-.add-btn {
+.add-btn {}
 
-}
-.delete-btn {
-
-}
- 
+.delete-btn {}
 
 .dashboard-margin {
     margin: 20px;
 }
+
 .basic-margin {
     margin: 80px 30px;
 }
+
 .home-page {
     width: 100%;
     height: 100vh;
     position: relative;
-background-color: #FFF3DF;
-margin: 0;
+    background-color: #FFF3DF;
+    margin: 0;
 }
+
 .main-content {
     position: relative;
     width: 100%;
     height: 100vh;
 }
+
 .rightImg {
     max-height: 50vh;
     max-width: 40vw;
-    position:absolute;
+    position: absolute;
     right: 0;
     bottom: 0;
 }
+
 .leftImg {
     max-height: 50vh;
     max-width: 40vw;
-    position:absolute;
+    position: absolute;
     left: 0;
     bottom: 0;
 }
@@ -11769,7 +11772,6 @@ body {
 
 /* Start of code written by us*/
 
-
 #login {
     margin-top: 200px;
     text-align: center;
@@ -11887,8 +11889,10 @@ img.petshop {
 
 .titleText {
     display: flex;
-    justify-content: center; /* align horizontal */
-    align-items: center; /* align vertical */
+    justify-content: center;
+    /* align horizontal */
+    align-items: center;
+    /* align vertical */
     height: 100%;
 }
 
@@ -11896,24 +11900,57 @@ img.petshop {
     display: block;
 }
 
-.progressText{
+.progressText {
     font-size: x-large;
     color: #A14D39;
     position: absolute;
-    top: 185px;
+    top: 230px;
 }
 
-.dashboardImg{
-    width:150px; 
-    height:150px; 
-    float:right;
+.dashboardImg {
+    width: 150px;
+    height: 150px;
+    float: right;
     margin-left: 10px;
 }
 
-.dashContainer{
+.dashContainer {
     background-color: #FDC764;
     border: 5px solid #A14D39;
-    width: 1000px;
-    height: 220px;
+    width: 1100px;
+    height: 350px;
     color: #171527;
+}
+
+.dailyColor {
+    background-color: #298A08;
+}
+
+.progress-custom {
+    display: table;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.progress-custom .progress {
+    margin-bottom: 0;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.progress-custom .progress-value {
+    display: table-cell;
+    vertical-align: middle;
+    width: 1%;
+    padding: 0 4px;
+    font-size: 20px;
+    color: #A14D39;
+    font-weight: bold;
+}
+
+.progressTitle {
+    text-align: center;
+    font-size: 20px;
+    color: #A14D39;
+    font-weight: bold;
 }

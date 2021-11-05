@@ -1,44 +1,55 @@
-{% extends "muninn/base.html" %} 
-{% load static %}
-{% block content %}
+{% extends "muninn/base.html" %} {% load static %} {% block content %}
 <div class="dashboard-margin">
-<h1 class="mt-4">Dashboard</h1>
-<div class="row">
-    <div class="container pt-3 my-4 dashContainer">
-        <div class="progress" style="height:30px">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 20%; height:30px"></div>
-        </div>
-        <img src="{% static 'muninn/images/Chiara.png' %}" class="rounded dashboardImg" style="float:right">
-        <div class="progressText" style="clear: right">
-            <p><b>Level:</b> 1 <br><b>Gold:</b> 100 <br><b>XP:</b> 100</p>
+    <h1 class="mt-4">Dashboard</h1>
+    <div class="row">
+        <div class="container pt-3 my-4 dashContainer">
+            <div class="progressTitle">Level</div>
+            <div class="progress-custom">
+                <div class="progress-value">1</div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 20%; height:30px"></div>
+                </div>
+                <div class="progress-value">2</div>
+            </div>
+            <img src="{% static 'muninn/images/Chiara.png' %}" class="rounded dashboardImg" style="float:right">
+            <div class="progressText" style="clear: right">
+                <p><b>Level:</b> 1 <br><b>Gold:</b> 100 <br><b>XP:</b> 100</p>
+            </div>
+            <br><br><br><br><br><br><br>
+            <div class="progressTitle">Daily Tasks Done</div>
+            <div class="progress-custom">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated dailyColor" style="width: 50%; height:30px"></div>
+                </div>
+                <div class="progress-value">50%</div>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-xl-6 float-start">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5>Tasks</h5>
-            </div>
+    <div class="row">
+        <div class="col-xl-6 float-start">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Tasks</h5>
+                </div>
 
-            <div class="card-body">
+                <div class="card-body">
                     <table>
                         {% for task in tasks %}
                         <tr>
                             <td>
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <input hidden value="{{ task.id }}" name="hidden-completeTask">
-                                <input type="submit" name="completeTask" value=" {{ task.title }}" class="task-btn" style="background-color: {% if task.complete == 1 %}#FCAE1E {%else%} #FEE0AA {% endif %}">
-                            </form>
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    <input hidden value="{{ task.id }}" name="hidden-completeTask">
+                                    <input type="submit" name="completeTask" value=" {{ task.title }}" class="task-btn" style="background-color: {% if task.complete == 1 %}#FCAE1E {%else%} #FEE0AA {% endif %}">
+                                </form>
                             </td>
-                            
-                        <td>
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <input hidden name="delete-hidden" value="{{ task.id }}">
-                                <input type="submit" class="delete-btn" name="deleteTask" value="delete">
-                            </form>
+
+                            <td>
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    <input hidden name="delete-hidden" value="{{ task.id }}">
+                                    <input type="submit" class="delete-btn" name="deleteTask" value="delete">
+                                </form>
                             </td>
                         </tr>
                         {% empty %}
@@ -46,41 +57,40 @@
                         {% endfor %}
                     </table>
                     <br><br>
-                <form method="POST">
+                    <form method="POST">
 
-                    {% csrf_token %}
-                    {{form.as_p}}
+                        {% csrf_token %} {{form.as_p}}
 
-                    <input type="text" id="task" name="task">
-                    <input type="submit" class="add-btn" name="addTask" value="Add Task">
-                </form>
+                        <input type="text" id="task" name="task">
+                        <input type="submit" class="add-btn" name="addTask" value="Add Task">
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-6 float-end">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5>Habits</h5>
-            </div>
+        <div class="col-xl-6 float-end">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Habits</h5>
+                </div>
                 <div class="card-body">
                     <table>
                         {% for habit in habits %}
                         <tr>
                             <td>
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <input hidden value="{{ habit.id }}" name="hidden-completeHabit">
-                                <input type="submit" name="completeHabit" value=" {{ habit.title }}" class="task-btn" style="background-color: {% if habit.complete == 1 %}#FCAE1E {%else%} #FEE0AA {% endif %}">
-                            </form>
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    <input hidden value="{{ habit.id }}" name="hidden-completeHabit">
+                                    <input type="submit" name="completeHabit" value=" {{ habit.title }}" class="task-btn" style="background-color: {% if habit.complete == 1 %}#FCAE1E {%else%} #FEE0AA {% endif %}">
+                                </form>
                             </td>
                             <td>
-                        </td>
-                        <td>
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <input hidden name="delete-hidden-habit" value="{{ habit.id }}">
-                                <input type="submit" name="deleteHabit" class="delete-btn" value="delete">
-                            </form>
+                            </td>
+                            <td>
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    <input hidden name="delete-hidden-habit" value="{{ habit.id }}">
+                                    <input type="submit" name="deleteHabit" class="delete-btn" value="delete">
+                                </form>
                             </td>
                         </tr>
                         {% empty %}
@@ -88,13 +98,13 @@
                         {% endfor %}
                     </table>
                     <br><br>
-                <form method="POST">
-                    {% csrf_token %}
+                    <form method="POST">
+                        {% csrf_token %}
 
-                    <input type="text" id="habit" name="habit">
-                    <input type="submit" class="add-btn" name="addHabit" value="Add Habit">
-                </form>
-            </div>
+                        <input type="text" id="habit" name="habit">
+                        <input type="submit" class="add-btn" name="addHabit" value="Add Habit">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
