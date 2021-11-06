@@ -3,6 +3,8 @@
     <h1 class="mt-4">Dashboard</h1>
     <div class="row">
         <div class="container pt-3 my-4 dashContainer">
+            <img src="{% static 'muninn/images/Chiara.png' %}" class="rounded dashboardImg" style="float:right">
+
             <div class="progressTitle">Level</div>
             <div class="progress-custom">
                 <div class="progress-value">1</div>
@@ -11,17 +13,17 @@
                 </div>
                 <div class="progress-value">2</div>
             </div>
-            <img src="{% static 'muninn/images/Chiara.png' %}" class="rounded dashboardImg" style="float:right">
-            <div class="progressText" style="clear: right">
-                <p><b>Level:</b> 1 <br><b>Gold:</b> 100 <br><b>XP:</b> 100</p>
-            </div>
-            <br><br><br><br><br><br><br>
+
             <div class="progressTitle">Daily Tasks Done</div>
-            <div class="progress-custom">
+            <div class="progress-custom" style="margin-left: 188px;">
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated dailyColor" style="width: 50%; height:30px"></div>
                 </div>
                 <div class="progress-value">50%</div>
+            </div>
+
+            <div class="progressText" style="clear: right">
+                <p><b>Level:</b> 1 <br><b>Gold:</b> 100 <br><b>XP:</b> 100</p>
             </div>
         </div>
     </div>

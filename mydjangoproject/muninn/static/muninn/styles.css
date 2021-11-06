@@ -11904,7 +11904,7 @@ img.petshop {
     font-size: x-large;
     color: #A14D39;
     position: absolute;
-    top: 230px;
+    top: 150px;
 }
 
 .dashboardImg {
@@ -11917,8 +11917,8 @@ img.petshop {
 .dashContainer {
     background-color: #FDC764;
     border: 5px solid #A14D39;
-    width: 1100px;
-    height: 350px;
+    width: 800px;
+    height: 200px;
     color: #171527;
 }
 
@@ -11928,8 +11928,9 @@ img.petshop {
 
 .progress-custom {
     display: table;
-    width: 100%;
+    width: 50%;
     margin-bottom: 20px;
+    margin-left: 170px;
 }
 
 .progress-custom .progress {
@@ -11953,4 +11954,5 @@ img.petshop {
     font-size: 20px;
     color: #A14D39;
     font-weight: bold;
+    margin-left: 120px;
 }
