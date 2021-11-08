@@ -43,10 +43,11 @@ class dashboard(LoginRequiredMixin, ListView):
         try:
             #handling the tasks
             if 'addTask' in request.POST:
-                form = Task(title=request.POST.get('task'), created=fakeDate, user=request.user)
-                form.save()
-                self.calculate(request)
-                print(levelForPlayer(request))
+                if request.POST.get('task'):
+                    form = Task(title=request.POST.get('task'), created=fakeDate, user=request.user)
+                    form.save()
+                    self.calculate(request)
+                    print(levelForPlayer(request))
                 
             if 'completeTask' in request.POST:
                 queriedTask = Task.objects.get(pk=request.POST.get('hidden-completeTask'))
@@ -65,14 +66,15 @@ class dashboard(LoginRequiredMixin, ListView):
                     
             #handling the Habits       
             if 'addHabit' in request.POST:
-                #Master List
-                form1 = MuninnMasterHabits(title=request.POST.get('habit'), created=fakeDate, user=request.user)
-                form1.save()
-                #Daily List
-                
-                form2=MuninnDailyHabits(title=request.POST.get('habit'), date=fakeDate, user=request.user, master_habit=form1)
-                form2.save()
-                self.calculate(request)
+                if request.POST.get('habit'):
+                    #Master List
+                    form1 = MuninnMasterHabits(title=request.POST.get('habit'), created=fakeDate, user=request.user)
+                    form1.save()
+                    #Daily List
+                    
+                    form2=MuninnDailyHabits(title=request.POST.get('habit'), date=fakeDate, user=request.user, master_habit=form1)
+                    form2.save()
+                    self.calculate(request)
             if 'completeHabit' in request.POST:
                 queriedTask = MuninnDailyHabits.objects.get(pk=request.POST.get('hidden-completeHabit'))
                 if queriedTask.complete == True:
