@@ -22,8 +22,10 @@ def petshop(request):
 def about(request):
     return render(request, 'muninn/about.html')
 
+@login_required
 def roost(request):
-    return render(request, 'muninn/roost.html')
+    allAnimals = Animals.objects.all()
+    return render(request, 'muninn/roost.html', {'animalList':allAnimals})
 
 def usersettings(request):
     return render(request, 'muninn/user_settings.html')

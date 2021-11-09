@@ -1,3 +1,43 @@
-{% extends "muninn/base.html" %} {% load static %} {% block content %}
-<h1>Roost</h1>
+{% extends "muninn/base.html" %} {% load static %} 
+{% block content %}
+<div class="dashboard-margin">
+<h1 class="mt-4" >Roost</h1>
+
+<div>
+    <h1 style="text-align:center">{{animalList.first.name}} </h1>
+    <img class="m-auto stadium" src="..\..\static\muninn\images\{{animalList.first.file_name}}.png">
+    <br>
+</div>
+
+<hr>
+    <select name="filter" id="filter">
+        <option value="name">Name</option>
+        <option value="level">Level</option>
+        <option value="new">Newest</option>
+    </select>
+    <div style="position:relative; left: 2cm; width:100%">
+        <div class="m-sm-auto row-cols-xl-4">
+
+            {% if animalList %}
+            {% for animal in animalList %}
+            
+            <div class="card-header basic-margin roost-card" style="float:left; opacity:{% if animal.level > level %}50% {% else %} 100% {% endif %}">
+                <div class="card-body roost-card-inner" ">
+                    <span><b>{{animal.name}}</b></span><br>
+                    <img class="petshop "src= "..\..\static\muninn\images\{{animal.file_name}}.png" ><br>      
+                </div>
+                <table>
+                    <tr class="psp-info-line">
+                        <td> <h5>LV: {{animal.level}}</h5></td><td><h5>{{animal.name}}</h5></td>
+                    </tr>
+                </table>
+                
+            </div>
+            {% endfor %}
+            {% else %}
+                <p>Error Loading Pets</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock content %}

@@ -11782,11 +11782,15 @@ body {
 }
 
 img.petshop {
-    height: 250px;
+    height: 100px;
     position: relative;
     left: .5cm;
 }
-
+img.stadium{
+    position:relative;
+    width: 300px;
+    left:37%;
+}
 #homeLogo {
     width: 20vw;
     display: block;
@@ -11807,15 +11811,31 @@ img.petshop {
     border-radius: 18px;
     border-style: groove;
     border-color: #FDC764;
-    height: 4.5in;
-    width: 3.5in;
+    height: 3in;
+    width: 2.5in;
+    margin: 16px;
 }
 
 .psp-card-inner {
     font-size: 22pt;
     border-radius: 18px;
-    background-color: #FEE0AA;
-    height: 3.5in;
+    background-color: #FCEFDB;
+    height: 2in;
+}
+.roost-card{
+    background-color: #A14D39;
+    border-radius: 18px;
+    border-style: groove;
+    border-color: #B97A6B;
+    height: 3in;
+    width: 2.5in;
+    margin: 16px;
+}
+.roost-card-inner{
+    font-size: 22pt;
+    border-radius: 18px;
+    background-color: #EFB053;
+    height: 2in;
 }
 
 .psp-info-line {
