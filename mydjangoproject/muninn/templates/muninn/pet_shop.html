@@ -1,15 +1,13 @@
 {% extends "muninn/base.html" %} {% load static %} {% block content %}
 <div class="basic-margin">
     <h1 class="mt-4">Pet Shop</h1>
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn">Open Modal</button>
     <div class="m-sm-auto row-cols-xl-4">
 
         {% if animalList %}
         {% for animal in animalList %}
         
         <div class="card-header basic-margin psp-card" style="float:left; opacity:{% if animal.level > level %}50% {% else %} 100% {% endif %}">
-            <div class="card-body psp-card-inner" ">
+            <div class="card-body psp-card-inner">
                 <span><b>{{animal.name}}</b></span><br>
                 <img class="petshop "src= "..\..\static\muninn\images\{{animal.file_name}}.png" ><br>      
             </div>
@@ -20,11 +18,8 @@
                 <tr class="psp-info-line">
                     
                     <td> 
-                        <form method="POST" action="">
-                            {% csrf_token %}
-                            <input hidden value="{{ animal.file_name }}" name="hidden-animal">
-                            <input type="submit" value="BUY" class="btn btn-outline-danger" id="buy" {% if money < animal.price %} disabled {% endif %}></td>
-                        </form>
+                        <button class="btn btn-outline-danger" id="buy" onclick='buyAnimal("{{ animal.file_name }}")' {% if money < animal.price or animal.level > level %} disabled {% endif %}>BUY</button>
+                    </td>
                 </tr>
             </table>
             
@@ -36,31 +31,33 @@
         </div>
 
        <!-- The Modal -->
-    <div id="myModal" class="modal" style="display:none">
+    <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
         <span class="close">&times;</span>
         <p>Some text in the Modal..</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Name your pet" name="name-of-pet">
+            <input type-"text" value="" name="animal-file-name" id="animal-file-name" hidden>
+            <input type="submit" value="BUY PET">
+        </form>
         </div>
     
     </div> 
 </div>
 <script>
-    // change this function to take 'animal' primary key (animal.file_name) as parameter
-    // on the button definition onClick to function
-
     // Get the modal
     var modal = document.getElementById("myModal");
-       
+
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
+    var hiddenInfo = document.getElementById("animal-file-name");
     
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    function butAnimal(animal_pk) {
+    function buyAnimal(animal_pk) {
+        console.log("in buyAnimal");
+        hiddenInfo.value = animal_pk;
         modal.style.display = "block";
         //hidden value for button
     }

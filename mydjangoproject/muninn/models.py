@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from datetime import date
 # models here from 'python manage.py inspectdb'
 
-
 class Task(models.Model):
 	user = models.ForeignKey(
 		User, on_delete=models.CASCADE, null=True, blank=True)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Task, Animals, MuninnDailyHabits, MuninnMasterHabits, MuninnPlayer
+from .models import Task, Animals, MuninnDailyHabits, MuninnMasterHabits, MuninnPlayer, MuninnRoost
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
@@ -12,12 +12,21 @@ from django.contrib import messages
 from django.views.generic import TemplateView
 from django.views import View
 
+# at the VERY end, refactor fakeDate (test purposes atm)
+
 def home(request):
     return render(request, 'muninn/home.html')
 
 class petshop(LoginRequiredMixin, View):
     template_name = 'templates/muninn/pet_shop.html'
     def post(self, request, *args, **kwargs):
+        queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
+        queriedAnimal = Animals.objects.get(file_name=request.POST.get('animal-file-name'))
+        if queriedUser.money > queriedAnimal.price:
+            queriedUser.money = queriedUser.money-queriedAnimal.price
+            form = MuninnRoost(muninn_player=queriedUser, animal_name=request.POST.get('name-of-pet'), animal_type=queriedAnimal)
+            form.save() 
+            queriedUser.save()
         return redirect('muninn-pet-shop')
     def get(self, request):
         allAnimals = Animals.objects.all()
