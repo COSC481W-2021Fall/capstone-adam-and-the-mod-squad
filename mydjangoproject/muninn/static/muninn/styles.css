@@ -11830,9 +11830,14 @@ img.stadium{
     height: 3in;
     width: 2.5in;
     margin: 16px;
+    transition: background-color .5s;
 }
+.roost-card:hover{
+    background-color: #993E28;
+}
+
 .roost-card-inner{
-    font-size: 22pt;
+    font-size: 20pt;
     border-radius: 18px;
     background-color: #EFB053;
     height: 2in;

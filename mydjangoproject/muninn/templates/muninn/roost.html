@@ -10,12 +10,19 @@
 </div>
 
 <hr>
-    <select name="filter" id="filter">
-        <option value="name">Name</option>
-        <option value="level">Level</option>
-        <option value="new">Newest</option>
-    </select>
-    <div style="position:relative; left: 2cm; width:100%">
+    <form action="/roost" method="post" >
+        {% csrf_token %}
+        <select name="filter" onchange="this.form.submit()">
+            <option value="+name">Name A-Z</option>
+            <option value="-name">Name Z-A</option>
+            <option value="+level">Level &#8593;</option>
+            <option value="-level">Level &#8595;</option>
+            <option value="+animal">Animal A-Z</option>
+            <option value="-animal">Animal Z-A</option>
+        </select>
+        <input type="text" name="search" placeholder="Search">
+    </form>
+    <div style="position:relative; left: 2cm; width:100%"  onchange="this.form.submit()">
         <div class="m-sm-auto row-cols-xl-4">
 
             {% if animalList %}
@@ -35,7 +42,7 @@
             </div>
             {% endfor %}
             {% else %}
-                <p>Error Loading Pets</p>
+                <p>No Pets Here</p>
             {% endif %}
         </div>
     </div>

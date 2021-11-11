@@ -25,7 +25,30 @@ def about(request):
 @login_required
 def roost(request):
     allAnimals = Animals.objects.all()
+
+    if request.method=='POST' and 'filter' in request.POST :
+        if 'search' in request.POST:
+            searchQ=request.POST['search']
+            print(searchQ)
+            filterAnimals=Animals.objects.filter(name__icontains=searchQ)
+            return render(request, 'muninn/roost.html', {'animalList':filterAnimals})
+
+        answer=request.POST['filter']
+        print(answer);
+        #if answer =='+name':
+            #allAnimals=allAnimals.order_by('name')
+        #if answer =='-name':
+            #allAnimals=allAnimals.order_by('-name')
+        if answer == '+level':
+            allAnimals=allAnimals.order_by('-level')
+        if answer == '-level':
+            allAnimals=allAnimals.order_by('level')
+        if answer == '+animal':
+            allAnimals=allAnimals.order_by('name')
+        if answer == "-animal":
+            allAnimals=allAnimals.order_by('-name')
     return render(request, 'muninn/roost.html', {'animalList':allAnimals})
+
 
 def usersettings(request):
     return render(request, 'muninn/user_settings.html')
