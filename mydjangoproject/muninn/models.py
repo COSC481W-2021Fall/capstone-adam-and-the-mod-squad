@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from datetime import date
 # models here from 'python manage.py inspectdb'
 
-
 class Task(models.Model):
 	user = models.ForeignKey(
 		User, on_delete=models.CASCADE, null=True, blank=True)
@@ -59,3 +58,12 @@ class MuninnMasterHabits(models.Model):
     active = models.BooleanField(default=True)
     class Meta:
         db_table = 'muninn_master_habits'
+
+class MuninnRoost(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    animal_name = models.CharField(max_length=30)
+    muninn_player = models.ForeignKey(MuninnPlayer, models.DO_NOTHING, db_column='muninn_player')
+    animal_type = models.ForeignKey(Animals, models.DO_NOTHING, db_column='animal_type')
+
+    class Meta:
+        db_table = 'muninn_roost'
