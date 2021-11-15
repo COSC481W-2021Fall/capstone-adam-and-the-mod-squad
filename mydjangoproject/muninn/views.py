@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Task, Animals, MuninnDailyHabits, MuninnMasterHabits, MuninnPlayer
+from .models import Task, Animals, MuninnDailyHabits, MuninnMasterHabits, MuninnPlayer, MuninnRoost
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
@@ -12,14 +12,30 @@ from django.contrib import messages
 import numpy as np
 from django import template
 register = template.Library()
+from django.views.generic import TemplateView
+from django.views import View
+
+# at the VERY end, refactor fakeDate (test purposes atm)
 
 def home(request):
     return render(request, 'muninn/home.html')
 
-@login_required #must be logged in to see
-def petshop(request):
-    allAnimals = Animals.objects.all()
-    return render(request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':0})
+class petshop(LoginRequiredMixin, View):
+    template_name = 'templates/muninn/pet_shop.html'
+    def post(self, request, *args, **kwargs):
+        queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
+        queriedAnimal = Animals.objects.get(file_name=request.POST.get('animal-file-name'))
+        if queriedUser.money > queriedAnimal.price:
+            queriedUser.money = queriedUser.money-queriedAnimal.price
+            form = MuninnRoost(muninn_player=queriedUser, animal_name=request.POST.get('name-of-pet'), animal_type=queriedAnimal)
+            form.save() 
+            queriedUser.save()
+        return redirect('muninn-pet-shop')
+    def get(self, request):
+        allAnimals = Animals.objects.all()
+        level = levelForPlayer(self.request)
+        queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
+        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money})
 
 def about(request):
     return render(request, 'muninn/about.html')
@@ -50,7 +66,7 @@ class dashboard(LoginRequiredMixin, ListView):
                     form = Task(title=request.POST.get('task'), created=fakeDate, user=request.user)
                     form.save()
                     self.calculate(request)
-                    print(levelForPlayer(request))
+                    
                 
             if 'completeTask' in request.POST:
                 queriedTask = Task.objects.get(pk=request.POST.get('hidden-completeTask'))

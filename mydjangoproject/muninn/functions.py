@@ -2,7 +2,7 @@ from .models import Task, Animals, MuninnDailyHabits, MuninnMasterHabits, Muninn
 from datetime import date, timedelta
 
 
-fakeDate = date.today() + timedelta(days=6)
+fakeDate = date.today() + timedelta(days=3)
 
 def dailyReset(request):
     queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
@@ -12,7 +12,8 @@ def dailyReset(request):
             form2=MuninnDailyHabits(title=habit.title, date=fakeDate, user=request.user, master_habit=habit)
             form2.save()
         queriedUser.last_day_updates = fakeDate
-        queriedUser.total_points = queriedUser.total_points+queriedUser.daily_points
+        queriedUser.total_points = queriedUser.total_points + queriedUser.daily_points
+        queriedUser.money = queriedUser.money + queriedUser.daily_points
         queriedUser.daily_points = 0
         queriedUser.save()
 
@@ -20,6 +21,7 @@ def dailyReset(request):
 def levelForPlayer(request):
     queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
     pointsForLevel = queriedUser.total_points+queriedUser.daily_points
+    # level = "Level " + str(int((np.log(pointsForLevel))/((300/pointsForLevel) + 1)+1))
     if pointsForLevel <= 75:
         level = 1
     elif pointsForLevel > 75 and pointsForLevel <= 175:
@@ -40,6 +42,7 @@ def levelForPlayer(request):
         level = 9
     elif pointsForLevel > 1575 and pointsForLevel <= 1875:
         level = 10
+
     return level
 
 def pointsTillNextLevel(request):
