@@ -6,9 +6,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
-from .functions import dailyReset, levelForPlayer, fakeDate
+from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel
 import traceback
 from django.contrib import messages
+import numpy as np
+from django import template
+register = template.Library()
 from django.views.generic import TemplateView
 from django.views import View
 
@@ -48,6 +51,7 @@ def friends(request):
 
 def statistics(request):
     return render(request, 'muninn/statistics.html')
+
 
 
 class dashboard(LoginRequiredMixin, ListView):
@@ -117,6 +121,11 @@ class dashboard(LoginRequiredMixin, ListView):
         context['tasks'] = context['tasks'].filter(user=self.request.user, created=fakeDate)
         context['count'] = context['tasks'].filter(complete=False).count()
         context['habits'] = MuninnDailyHabits.objects.filter(user_id__exact=self.request.user.id, date=fakeDate)
+        context['player'] = MuninnPlayer.objects.get(playerid=self.request.user.id)
+        context['level'] = levelForPlayer(self.request)
+        # TODO: calculate % to next level w function
+        percentageToNextLevel = pointsTillNextLevel(self.request)
+        context['percentToNextLevel'] = percentageToNextLevel
         search_input = self.request.GET.get('search-area') or ''
         if search_input:
             context['tasks'] = context['tasks'].filter(
