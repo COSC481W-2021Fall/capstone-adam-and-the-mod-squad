@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
-from .functions import dailyReset, levelForPlayer, fakeDate
+from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel
 import traceback
 from django.contrib import messages
 import numpy as np
@@ -108,7 +108,8 @@ class dashboard(LoginRequiredMixin, ListView):
         context['player'] = MuninnPlayer.objects.get(playerid=self.request.user.id)
         context['level'] = levelForPlayer(self.request)
         # TODO: calculate % to next level w function
-        context['percentToNextLevel'] = 10
+        percentageToNextLevel = pointsTillNextLevel(self.request)
+        context['percentToNextLevel'] = percentageToNextLevel
         search_input = self.request.GET.get('search-area') or ''
         if search_input:
             context['tasks'] = context['tasks'].filter(
