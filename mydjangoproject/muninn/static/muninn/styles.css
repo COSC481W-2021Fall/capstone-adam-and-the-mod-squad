@@ -75,12 +75,29 @@
     box-sizing: border-box;
 }
 
+
+@media (prefers-reduced-motion: no-preference) {
+     :root {
+        scroll-behavior: smooth;
+    }
 /* The Modal (background) */
 .modal {
     position: fixed;
     top: 10%;
     left: 40%;
     display: none;
+
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left:0%;
+    right:0%;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     overflow-x: hidden;
     overflow-y: auto;
     outline: 0px;
@@ -3314,11 +3331,16 @@ small,
 }
 
 img.petshop {
-    height: 250px;
+    height: 100px;
     position: relative;
     left: .5cm;
 }
-
+img.stadium{
+    position:relative;
+    width: 300px;
+    left:37%;
+    z-index: 5;
+}
 #homeLogo {
     width: 20vw;
     display: block;
@@ -3339,15 +3361,36 @@ img.petshop {
     border-radius: 18px;
     border-style: groove;
     border-color: #FDC764;
-    height: 4.5in;
-    width: 3.5in;
+    height: 3in;
+    width: 2.5in;
+    margin: 16px;
 }
 
 .psp-card-inner {
     font-size: 22pt;
     border-radius: 18px;
-    background-color: #FEE0AA;
-    height: 3.5in;
+    background-color: #FCEFDB;
+    height: 2in;
+}
+.roost-card{
+    background-color: #A14D39;
+    border-radius: 18px;
+    border-style: groove;
+    border-color: #B97A6B;
+    height: 3in;
+    width: 2.5in;
+    margin: 16px;
+    transition: background-color;
+}
+.roost-card:hover{
+    background-color: #993E28;
+}
+
+.roost-card-inner{
+    font-size: 20pt;
+    border-radius: 18px;
+    background-color: #EFB053;
+    height: 2in;
 }
 
 .psp-info-line {
@@ -3457,6 +3500,10 @@ img.petshop {
 .dailyColor {
     background-color: #298A08;
 }
+.buy-btn{
+    position:relative;
+    top: -28px;
+}
 
 .progress-custom {
     display: table;
@@ -3499,6 +3546,18 @@ img.petshop {
     opacity: 0;
 }
 
+.bkg-roost{
+    position:absolute;
+    width:75%;
+    z-index:1;
+    margin-left:3%;
+    margin-right:10%;
+    top:3.5in;
+    height:100px;
+    background-color: #EFB053;
+    border-radius:16px;
+    opacity:50%
+}
 fieldset{
     border:none;
 }
@@ -3513,3 +3572,4 @@ fieldset{
     height: 10px;
     width: 400px;
 }
+

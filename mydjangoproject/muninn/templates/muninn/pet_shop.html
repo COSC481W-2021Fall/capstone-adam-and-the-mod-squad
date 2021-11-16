@@ -1,7 +1,9 @@
 {% extends "muninn/base.html" %} {% load static %} {% block content %}
-<div class="basic-margin">
+<div class="dashboard-margin">
     <h1 class="mt-4">Pet Shop</h1>
-    <div class="m-sm-auto row-cols-xl-4">
+    <div>
+         <div class="m-sm-auto row-cols-xl-6">
+
 
         {% if animalList %}
         {% for animal in animalList %}
@@ -15,25 +17,25 @@
                 <tr class="psp-info-line">
                     <td> <h5>LV: {{animal.level}}</h5></td><td><h5>COST: {{animal.price}}</h5></td>
                 </tr>
-                <tr class="psp-info-line">
+                <tr class="psp-info-line buy-btn">
                     
                     <td> 
                         <button class="btn btn-outline-danger buy-btn" id="buy" onclick='buyAnimal("{{ animal.file_name }}")' {% if money < animal.price or animal.level > level %} disabled {% endif %}>BUY</button>
                     </td>
                 </tr>
             </table>
-            
+                
+            </div>
+            {% endfor %}
+            {% else %}
+                <p>Error Loading Pets</p>
+            {% endif %}
         </div>
-        {% endfor %}
-        {% else %}
-            <p>Error Loading Pets</p>
-        {% endif %}
-        </div>
-
        <!-- The Modal -->
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
+
         <div class="modal-content ">
         <span class="close" id="close-PetShop">&times;</span>
         <p>Please enter the name you wish to give to your pet: </p>

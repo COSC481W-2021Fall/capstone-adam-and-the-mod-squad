@@ -1,3 +1,60 @@
-{% extends "muninn/base.html" %} {% load static %} {% block content %}
-<h1>Roost</h1>
+{% extends "muninn/base.html" %} {% load static %} 
+{% block content %}
+<div class="dashboard-margin">
+<h1 class="mt-4" >Roost</h1>
+    {%if animalList %}
+    <div>
+            <h1 id="spotlight_name" style="text-align:center">{{animalList.first.animal_name}} </h1>
+            <img id="spotlight_img" class="m-auto stadium" src="..\..\static\muninn\images\{{animalList.first.animal_type.file_name}}.png">
+        <br>
+    </div>
+    {% endif %}
+    <div class="bkg-roost">
+       
+    </div>
+    <hr>
+    <form action="/roost" method="post" >
+        {% csrf_token %}
+        <select class="alert-warning" name="filter" onchange="this.form.submit()">
+            <option value="" selected="selected">--Filter By--</option>
+            <option value="+name">Name A-Z</option>
+            <option value="-name">Name Z-A</option>
+            <option value="+level">Level &#8593;</option>
+            <option value="-level">Level &#8595;</option>
+            <option value="+animal">Animal A-Z</option>
+            <option value="-animal">Animal Z-A</option>
+        </select>
+        <input class="alert-warning" type="text" name="search" placeholder="Search">
+    </form>
+    <div style="position:relative; left: 2cm; width:100%" >
+        <div class="m-sm-auto row-cols-xl-4">
+
+            {% if animalList %}
+            {% for animal in animalList %}
+                    <div  onclick="spotlight('{{animal.animal_type.file_name}}','{{animal.animal_name}}')" class="card-header basic-margin roost-card"  style="float:left; opacity:{% if animal.level > level %}50% {% else %} 100% {% endif %}">
+                        <div class="card-body roost-card-inner" ">
+                            <span><b>{{animal.animal_name}}</b></span><br>
+                            <img class="petshop "src= "..\..\static\muninn\images\{{animal.animal_type.file_name}}.png" ><br>
+                        </div>
+                        <table>
+                            <tr class="psp-info-line">
+                                <td><h5>{{animal.animal_type.name}}</h5></td><td><h5>LV: {{animal.animal_type.level}}</h5></td>
+                            </tr>
+                        </table>
+                    </div>
+
+            {% endfor %}
+            {% else %}
+                <h2 class="m-auto text-sm-center">No Pets Here!</h2>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    function spotlight(file, name){
+        let img_src="..\\..\\static\\muninn\\images\\"+file+".png";
+        document.getElementById("spotlight_img").src=img_src;
+        document.getElementById("spotlight_name").innerHTML=name;
+    }
+</script>
 {% endblock content %}

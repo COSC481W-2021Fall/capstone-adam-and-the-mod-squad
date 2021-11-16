@@ -14,6 +14,7 @@ from django import template
 register = template.Library()
 from django.views.generic import TemplateView
 from django.views import View
+from django.db.models import Q
 
 # at the VERY end, refactor fakeDate (test purposes atm)
 
@@ -40,8 +41,37 @@ class petshop(LoginRequiredMixin, View):
 def about(request):
     return render(request, 'muninn/about.html')
 
+@login_required
 def roost(request):
-    return render(request, 'muninn/roost.html')
+    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
+    myAnimals = MuninnRoost.objects.filter(muninn_player__exact=queriedUser)
+
+    
+    if request.method=='POST' and 'filter' in request.POST :
+        print("Search:"+request.POST['search'])
+        searchQ= request.POST['search'].strip()
+        if searchQ:
+            print("SearchQ is"+searchQ)
+            filterAnimals=myAnimals.filter(Q(animal_name__icontains=searchQ) | Q(animal_type__name__icontains=searchQ))
+            return render(request, 'muninn/roost.html', {'animalList':filterAnimals})
+
+        answer=request.POST['filter']
+        print("anser is:"+answer);
+        if answer =='+name':
+            myAnimals=myAnimals.order_by('animal_name')
+        if answer =='-name':
+            myAnimals=myAnimals.order_by('-animal_name')
+        if answer == '+animal':
+            myAnimals=myAnimals.order_by('animal_type__name')
+        if answer == "-animal":
+            myAnimals=myAnimals.order_by('-animal_type__name')
+        if answer == '+level':
+            print("level+")
+            myAnimals=myAnimals.order_by('animal_type__level')
+        if answer == '-level':
+            myAnimals=myAnimals.order_by('-animal_type__level')
+    return render(request, 'muninn/roost.html', {'animalList':myAnimals})
+
 
 def usersettings(request):
     return render(request, 'muninn/user_settings.html')
