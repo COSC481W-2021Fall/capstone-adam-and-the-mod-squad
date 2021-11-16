@@ -17,7 +17,7 @@
                 <tr class="psp-info-line">
                     <td> <h5>LV: {{animal.level}}</h5></td><td><h5>COST: {{animal.price}}</h5></td>
                 </tr>
-                <tr class="psp-info-line">
+                <tr class="psp-info-line buy-btn">
                     
                     <td> 
                         <button class="btn btn-outline-danger" id="buy" onclick='buyAnimal("{{ animal.file_name }}")' {% if money < animal.price or animal.level > level %} disabled {% endif %}>BUY</button>
@@ -31,19 +31,12 @@
                 <p>Error Loading Pets</p>
             {% endif %}
         </div>
-        {% endfor %}
-        {% else %}
-            <p>Error Loading Pets</p>
-        {% endif %}
-        </div>
-
        <!-- The Modal -->
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
         <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
         <form method="POST">
             {% csrf_token %}
             <input type="text" placeholder="Name your pet" name="name-of-pet">

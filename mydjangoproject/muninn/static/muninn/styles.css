@@ -79,14 +79,14 @@
      :root {
         scroll-behavior: smooth;
     }
-=======
 /* The Modal (background) */
 .modal {
     display: none;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
-    left: 0;
+    left:0%;
+    right:0%;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
@@ -100,7 +100,6 @@
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
     width: 80%;
   }
   
@@ -3068,6 +3067,7 @@ img.stadium{
     position:relative;
     width: 300px;
     left:37%;
+    z-index: 5;
 }
 #homeLogo {
     width: 20vw;
@@ -3108,7 +3108,7 @@ img.stadium{
     height: 3in;
     width: 2.5in;
     margin: 16px;
-    transition: background-color .5s;
+    transition: background-color;
 }
 .roost-card:hover{
     background-color: #993E28;
@@ -3228,6 +3228,10 @@ img.stadium{
 .dailyColor {
     background-color: #298A08;
 }
+.buy-btn{
+    position:relative;
+    top: -28px;
+}
 
 .progress-custom {
     display: table;
@@ -3268,4 +3272,16 @@ img.stadium{
 
 .alert-trans:hover {
     opacity: 0;
+}
+.bkg-roost{
+    position:absolute;
+    width:75%;
+    z-index:1;
+    margin-left:3%;
+    margin-right:10%;
+    top:3.5in;
+    height:100px;
+    background-color: #EFB053;
+    border-radius:16px;
+    opacity:50%
 }

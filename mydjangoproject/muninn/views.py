@@ -14,6 +14,7 @@ from django import template
 register = template.Library()
 from django.views.generic import TemplateView
 from django.views import View
+from django.db.models import Q
 
 # at the VERY end, refactor fakeDate (test purposes atm)
 
@@ -42,30 +43,34 @@ def about(request):
 
 @login_required
 def roost(request):
-    allAnimals = Animals.objects.all()
+    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
+    myAnimals = MuninnRoost.objects.filter(muninn_player__exact=queriedUser)
 
+    
     if request.method=='POST' and 'filter' in request.POST :
-        if 'search' in request.POST:
-            searchQ=request.POST['search']
-            print(searchQ)
-            filterAnimals=Animals.objects.filter(name__icontains=searchQ)
+        print("Search:"+request.POST['search'])
+        searchQ= request.POST['search'].strip()
+        if searchQ:
+            print("SearchQ is"+searchQ)
+            filterAnimals=myAnimals.filter(Q(animal_name__icontains=searchQ) | Q(animal_type__name__icontains=searchQ))
             return render(request, 'muninn/roost.html', {'animalList':filterAnimals})
 
         answer=request.POST['filter']
-        print(answer);
-        #if answer =='+name':
-            #allAnimals=allAnimals.order_by('name')
-        #if answer =='-name':
-            #allAnimals=allAnimals.order_by('-name')
-        if answer == '+level':
-            allAnimals=allAnimals.order_by('-level')
-        if answer == '-level':
-            allAnimals=allAnimals.order_by('level')
+        print("anser is:"+answer);
+        if answer =='+name':
+            myAnimals=myAnimals.order_by('animal_name')
+        if answer =='-name':
+            myAnimals=myAnimals.order_by('-animal_name')
         if answer == '+animal':
-            allAnimals=allAnimals.order_by('name')
+            myAnimals=myAnimals.order_by('animal_type__name')
         if answer == "-animal":
-            allAnimals=allAnimals.order_by('-name')
-    return render(request, 'muninn/roost.html', {'animalList':allAnimals})
+            myAnimals=myAnimals.order_by('-animal_type__name')
+        if answer == '+level':
+            print("level+")
+            myAnimals=myAnimals.order_by('animal_type__level')
+        if answer == '-level':
+            myAnimals=myAnimals.order_by('-animal_type__level')
+    return render(request, 'muninn/roost.html', {'animalList':myAnimals})
 
 
 def usersettings(request):
