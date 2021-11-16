@@ -20,7 +20,7 @@
                 <tr class="psp-info-line buy-btn">
                     
                     <td> 
-                        <button class="btn btn-outline-danger" id="buy" onclick='buyAnimal("{{ animal.file_name }}")' {% if money < animal.price or animal.level > level %} disabled {% endif %}>BUY</button>
+                        <button class="btn btn-outline-danger buy-btn" id="buy" onclick='buyAnimal("{{ animal.file_name }}")' {% if money < animal.price or animal.level > level %} disabled {% endif %}>BUY</button>
                     </td>
                 </tr>
             </table>
@@ -35,12 +35,14 @@
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
-        <div class="modal-content">
-        <span class="close">&times;</span>
+
+        <div class="modal-content ">
+        <span class="close" id="close-PetShop">&times;</span>
+        <p>Please enter the name you wish to give to your pet: </p>
         <form method="POST">
             {% csrf_token %}
             <input type="text" placeholder="Name your pet" name="name-of-pet">
-            <input type-"text" value="" name="animal-file-name" id="animal-file-name" hidden>
+            <input type="text" value="" name="animal-file-name" id="animal-file-name" hidden>
             <input type="submit" value="BUY PET">
         </form>
         </div>
