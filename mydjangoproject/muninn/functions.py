@@ -49,23 +49,45 @@ def pointsTillNextLevel(request):
     queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
     pointsForLevel = queriedUser.total_points+queriedUser.daily_points
     if pointsForLevel <= 75:
+        lower = 0
         upper = 75
+        diff = upper-lower
     elif pointsForLevel > 75 and pointsForLevel <= 175:
+        lower = 76
         upper = 175
+        diff = upper-lower
     elif pointsForLevel > 175 and pointsForLevel <= 300:
+        lower = 176
         upper = 300
+        diff = upper-lower
     elif pointsForLevel > 300 and pointsForLevel <= 450:
+        lower = 301
         upper = 450
+        diff = upper-lower
     elif pointsForLevel > 450 and pointsForLevel <= 625:
+        lower = 451
         upper = 625
+        diff = upper-lower
     elif pointsForLevel > 625 and pointsForLevel <= 825:
+        lower = 626
         upper = 825
+        diff = upper-lower
     elif pointsForLevel > 825 and pointsForLevel <= 1050:
+        lower = 826
         upper = 1050
+        diff = upper-lower
     elif pointsForLevel > 1050 and pointsForLevel <= 1300:
+        lower = 1051
         upper = 1300
+        diff = upper-lower
     elif pointsForLevel > 1300 and pointsForLevel <= 1575:
+        lower = 1301
         upper = 1575
+        diff = upper-lower
     elif pointsForLevel > 1575 and pointsForLevel <= 1875:
+        lower = 1576
         upper = 1875
-    return round((pointsForLevel/upper)*100)
+        diff = upper-lower
+    pointsForLevel = pointsForLevel-lower
+
+    return round((pointsForLevel/(diff+1))*100)
