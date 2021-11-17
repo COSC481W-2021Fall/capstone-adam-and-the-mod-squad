@@ -90,4 +90,4 @@ def pointsTillNextLevel(request):
         diff = upper-lower
     pointsForLevel = pointsForLevel-lower
 
-    return round((pointsForLevel/diff)*100)
+    return round((pointsForLevel/(diff+1))*100)
