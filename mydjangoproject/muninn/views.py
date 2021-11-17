@@ -36,27 +36,31 @@ class petshop(LoginRequiredMixin, View):
         allAnimals = Animals.objects.all()
         level = levelForPlayer(self.request)
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money})
+        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money, 'player': queriedUser})
 
 def about(request):
-    return render(request, 'muninn/about.html')
+    if request.user.id:
+        level = levelForPlayer(request)
+        return render(request, 'muninn/about.html', {'level':level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
+    else: 
+        return render(request, 'muninn/about.html')
 
 @login_required
 def roost(request):
     queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
     myAnimals = MuninnRoost.objects.filter(muninn_player__exact=queriedUser)
 
-    
+    level = levelForPlayer(request)
     if request.method=='POST' and 'filter' in request.POST :
         print("Search:"+request.POST['search'])
         searchQ= request.POST['search'].strip()
         if searchQ:
             print("SearchQ is"+searchQ)
             filterAnimals=myAnimals.filter(Q(animal_name__icontains=searchQ) | Q(animal_type__name__icontains=searchQ))
-            return render(request, 'muninn/roost.html', {'animalList':filterAnimals})
+            return render(request, 'muninn/roost.html', {'animalList':filterAnimals, 'level':level, 'player': queriedUser})
 
         answer=request.POST['filter']
-        print("anser is:"+answer);
+        print("anser is:"+answer)
         if answer =='+name':
             myAnimals=myAnimals.order_by('animal_name')
         if answer =='-name':
@@ -70,7 +74,7 @@ def roost(request):
             myAnimals=myAnimals.order_by('animal_type__level')
         if answer == '-level':
             myAnimals=myAnimals.order_by('-animal_type__level')
-    return render(request, 'muninn/roost.html', {'animalList':myAnimals})
+    return render(request, 'muninn/roost.html', {'animalList':myAnimals, 'level':level, 'player': queriedUser})
 
 
 def usersettings(request):
