@@ -34,7 +34,6 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     {% if user.is_authenticated %}
                     <li><a class="dropdown-item" href="{% url 'muninn-about' %}">About</a></li>
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                     <li><a class="dropdown-item" href="{% url 'muninn-about' %}">About</a></li>
