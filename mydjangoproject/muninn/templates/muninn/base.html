@@ -128,6 +128,7 @@
         function changeNavBar() {
             var dashboard = document.getElementById("dashboard");
             var petStore = document.getElementById("petStore");
+            var roost = document.getElementById("roost");
             var bodyStyle = document.getElementById("bodyStyle");
             var url = window.location;
             console.log(url);
@@ -139,6 +140,10 @@
             if (String(url).includes("pet-shop")) {
                 petStore.style.backgroundColor = "#A14D39";
                 petStore.style.color = "#FFF3DF";
+            }
+            if (String(url).includes("roost")) {
+                roost.style.backgroundColor = "#A14D39";
+                roost.style.color = "#FFF3DF";
             }
         }
     </script>
