@@ -3030,16 +3030,10 @@
             position: absolute;
             top: 150px;
         }
-        .dashboardImg {
-            width: 150px;
-            height: 150px;
-            float: right;
-            margin-left: 10px;
-        }
         .dashContainer {
             background-color: #FDC764;
             border: 5px solid #A14D39;
-            width: 800px;
+            width: 650px;
             height: 200px;
             color: #171527;
         }
@@ -3048,9 +3042,10 @@
         }
         .progress-custom {
             display: table;
-            width: 50%;
-            margin-bottom: 20px;
-            margin-left: 170px;
+            width: 70%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 140px;
         }
         .progress-custom .progress {
             margin-bottom: 0;
@@ -3071,7 +3066,7 @@
             font-size: 20px;
             color: #A14D39;
             font-weight: bold;
-            margin-left: 120px;
+            margin-left: 100px;
         }
         .alert-trans {
             transition-property: opacity;
