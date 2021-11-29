@@ -41,8 +41,8 @@
         <p>Please enter the name you wish to give to your pet: </p>
         <form method="POST">
             {% csrf_token %}
-            <input type="text" placeholder="Name your pet" name="name-of-pet">
-            <input type="text" value="" name="animal-file-name" id="animal-file-name" hidden>
+            <input type="text" placeholder="Name your pet" name="name-of-pet"required>
+            <input type="text" value="" name="animal-file-name" id="animal-file-name" hidden >
             <input type="submit" value="BUY PET">
         </form>
         </div>
