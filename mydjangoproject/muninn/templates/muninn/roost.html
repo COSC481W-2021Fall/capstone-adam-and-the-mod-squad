@@ -3,8 +3,8 @@
 <div class="dashboard-margin">
 <h1 class="mt-4" >Roost</h1>
     {%if animalList %}
-    <div>
-            <h1 id="spotlight_name" style="text-align:center">{{animalList.first.animal_name}} </h1>
+    <div>   
+            <h1 id="spotlight_name" class="fixheight text-sm-center">{{animalList.first.animal_name}}</h1>
             <img id="spotlight_img" class="m-auto stadium" src="..\..\static\muninn\images\{{animalList.first.animal_type.file_name}}.png">
         <br>
     </div>
