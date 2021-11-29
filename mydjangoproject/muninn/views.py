@@ -26,7 +26,10 @@ class petshop(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
         queriedAnimal = Animals.objects.get(file_name=request.POST.get('animal-file-name'))
-        if queriedUser.money > queriedAnimal.price:
+        if (not request.POST.get('name-of-pet').strip()):
+            messages.warning(request, f'Be more creative than that!')
+
+        elif queriedUser.money > queriedAnimal.price:
             queriedUser.money = queriedUser.money-queriedAnimal.price
             form = MuninnRoost(muninn_player=queriedUser, animal_name=request.POST.get('name-of-pet'), animal_type=queriedAnimal)
             form.save() 
