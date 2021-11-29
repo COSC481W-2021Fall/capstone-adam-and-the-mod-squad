@@ -2979,21 +2979,10 @@
         .aboutContainer {
             background-color: #FDC764;
             border: 5px solid #A14D39;
-            width: 1000px;
-            height: 200px;
+            height: auto;
+            padding-bottom: 20px;
             color: #171527;
-        }
-        .aboutButton {
-            position: absolute;
-            top: 355px;
-            left: 59%;
-            transform: translateX(-65%);
-        }
-        .coffeeButton {
-            position: absolute;
-            top: 2360px;
-            left: 59%;
-            transform: translateX(-65%);
+            text-align: center;
         }
         .aboutImages {
             width: 150px;

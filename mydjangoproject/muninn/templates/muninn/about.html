@@ -3,29 +3,29 @@
     <div class="row">
         <div class="container">
             <h1 class="text-sm-center" style="margin-top: 20px;">About</h1>
-                <div class="row">
-                    <div class="container p-6 my-5 rounded-3 aboutContainer">
-                        <h1 class="text-sm-center">Welcome to Muninn!</h1>
-                        <p>At Munnin we want to help you complete more tasks, while having fun. Complete your tasks, level up, and get more pets. That's the name of the game here at Muninn.</p>
-                        {% if user.is_authenticated %}
-                        <p class="text-sm-center">Head to the Roost to see your pets!</p>
-                            <a href="{% url 'muninn-roost' %}">  
-                                <button type="button" class=" aboutButton btn btn-outline-danger">Go There Now!</button>
-                            </a>
-                        {% else %}
-                        <p class="text-sm-center">If you haven't already made an account, you can press the button below to register.</p>
-                            <a href="{% url 'users-register' %}">  
-                                <button type="button" class=" aboutButton loggedOut btn btn-outline-danger">Register</button>
-                            </a>
-                        {% endif %}
-                    </div>
+            <div class="row">
+                <div class="container p-6 my-5 rounded-3 aboutContainer">
+                    <h1 class="text-sm-center">Welcome to Muninn!</h1>
+                    <p>At Munnin we want to help you complete more tasks, while having fun. Complete your tasks, level up, and get more pets. That's the name of the game here at Muninn.</p>
+                    {% if user.is_authenticated %}
+                    <p class="text-sm-center">Head to the Roost to see your pets!</p>
+                    <a href="{% url 'muninn-roost' %}">
+                        <button type="button" class=" aboutButton btn btn-outline-danger">Go There Now!</button>
+                    </a>
+                    {% else %}
+                    <p class="text-sm-center">If you haven't already made an account, you can press the button below to register.</p>
+                    <a href="{% url 'users-register' %}">
+                        <button type="button" class="loggedOut btn btn-outline-danger">Register</button>
+                    </a>
+                    {% endif %}
                 </div>
+            </div>
         </div>
     </div>
 
     <div class="row">
         <div class="container p-6 my-5 rounded-3 aboutContainer">
-            <img src="{% static 'muninn/images/Andreaka.png' %}" alt="Andreaka" class = "rounded aboutImages">
+            <img src="{% static 'muninn/images/Andreaka.png' %}" alt="Andreaka" class="rounded aboutImages">
             <h2>Andreaka Jump</h2>
             <hr>
             <p>I am a senior CS major and this is actually my second bachelors. I also have a BFA in Art and Design. I like to paint and do other crafting type projects.</p>
@@ -34,7 +34,7 @@
 
     <div class="row">
         <div class="container p-6 my-5 text-black rounded-3 aboutContainer">
-            <img src="{% static 'muninn/images/Sara.png' %}" alt="Sara" class = "rounded aboutImages">
+            <img src="{% static 'muninn/images/Sara.png' %}" alt="Sara" class="rounded aboutImages">
             <h2>Sara Schafer</h2>
             <hr>
             <p>I like to watch anime, read comics, and play video games. I also like do art, like watercolor paining. My favorite type of video games are mystery games.</p>
@@ -43,7 +43,7 @@
 
     <div class="row">
         <div class="container p-6 my-5 text-black rounded-3 aboutContainer">
-            <img src="{% static 'muninn/images/Adam.png' %}" alt="Adam" class = "rounded aboutImages">
+            <img src="{% static 'muninn/images/Adam.png' %}" alt="Adam" class="rounded aboutImages">
             <h2>Adam Pollack</h2>
             <hr>
             <p>I like to disc golf, mountain bike and read, as well as a host of other activites. Currently I am a senior on the last semester, and leaning towards a data scientist role. My goal is to move to Colorado or Utah as I have family there and love
@@ -53,16 +53,16 @@
 
     <div class="row">
         <div class="container p-6 my-5 text-black rounded-3 aboutContainer">
-            <img src="{% static 'muninn/images/Chiara.png' %}" alt="Chiara" class = "rounded aboutImages">
+            <img src="{% static 'muninn/images/Chiara.png' %}" alt="Chiara" class="rounded aboutImages">
             <h2>Chiara Oxender</h2>
             <hr>
             <p>I like fantasy and hate javascript. I am a senior at EMU and I have almost escaped.</p>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="container p-6 my-5 text-black rounded-3 aboutContainer">
-            <img src="{% static 'muninn/images/Sakib.png' %}" alt="Sakib" class = "rounded aboutImages">
+            <img src="{% static 'muninn/images/Sakib.png' %}" alt="Sakib" class="rounded aboutImages">
             <h2>Sakib Jabbar</h2>
             <hr>
             <p>I like music, movies, food, and nature. I am a second bachelor's student in Computer Science (Applied) at EMU, currently completing my final semester in the program. My favorite coding language is Java.</p>
@@ -71,10 +71,11 @@
 
     <div class="row">
         <div class="container p-6 my-5 text-black rounded-3 aboutContainer">
-            <img src="{% static 'muninn/images/Jesse.png' %}" alt="Jesse" class = "rounded aboutImages">
+            <img src="{% static 'muninn/images/Jesse.png' %}" alt="Jesse" class="rounded aboutImages">
             <h2>Jesse Rogalski</h2>
             <hr>
-            <p>I like hiking, movies, music, and gaming. I am a senior computer science major on my last semester before I receive my degree. Afterwards, I'm considering pursuing a career in video game development or front-end web development, depending on what opportunities present themselves.</p>
+            <p>I like hiking, movies, music, and gaming. I am a senior computer science major on my last semester before I receive my degree. Afterwards, I'm considering pursuing a career in video game development or front-end web development, depending
+                on what opportunities present themselves.</p>
         </div>
     </div>
 
@@ -83,13 +84,13 @@
         <h2 class="text-sm-center">Buy Us A Coffee</h2>
         <p id="paragraphCoffee">If you like what we're doing and want to support us, click on the link below to buy us a coffee. We appreciate your support!</p>
         {% if user.is_authenticated %}
-            <a href="https://www.buymeacoffee.com/">  
-                <button type="button" class="coffeeButton btn btn-outline-danger">Buy Me a Coffee</button> 
-            </a>
+        <a href="https://www.buymeacoffee.com/">
+            <button type="button" class="coffeeButton btn btn-outline-danger">Buy Me a Coffee</button>
+        </a>
         {% else %}
-            <a href="https://www.buymeacoffee.com/">  
-                <button type="button" class="coffeeButton loggedOut btn btn-outline-danger">Buy Me a Coffee</button> 
-            </a>
+        <a href="https://www.buymeacoffee.com/">
+            <button type="button" class="loggedOut btn btn-outline-danger">Buy Me a Coffee</button>
+        </a>
         {% endif %}
     </div>
 </div>
