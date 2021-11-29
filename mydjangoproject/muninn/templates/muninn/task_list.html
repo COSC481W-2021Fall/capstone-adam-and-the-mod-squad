@@ -3,12 +3,8 @@
     <h1 class="mt-4">Dashboard</h1>
     <div class="row">
         <div class="container pt-3 my-4 dashContainer">
-            <img src="{% static 'muninn/images/Chiara.png' %}" class="rounded dashboardImg" style="float:right">
-
             <div class="progressTitle">Level</div>
             <div class="progress-custom">
-            
-           
                 <div class="progress-value">{{ level }}</div>
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{ percentToNextLevel }}%; height:30px"></div>
@@ -17,14 +13,14 @@
             </div>
 
             <div class="progressTitle">Daily Tasks Done</div>
-            <div class="progress-custom" style="margin-left: 188px;">
+            <div class="progress-custom" style="margin-left: 158px;">
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated dailyColor" style="width: {{ player.daily_points }}%; height:30px"></div>
                 </div>
                 <div class="progress-value">{{ player.daily_points }}%</div>
             </div>
 
-            <div class="progressText" style="clear: right">
+            <div class="progressText">
                 <p><b>Level:</b> {{ level }} <br><b>Gold:</b> {{ player.money }} <br><b>XP:</b> {{ player.daily_points|add:player.total_points }}</p>
             </div>
         </div>
