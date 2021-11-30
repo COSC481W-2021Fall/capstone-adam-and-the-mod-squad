@@ -49,12 +49,28 @@
                                     {% csrf_token %}
                                     <input hidden name="delete-hidden" value="{{ task.id }}">
                                     <input type="submit" class="delete-btn" name="deleteTask" value="delete">
+                                    
                                 </form>
+                                <button class="delete-btn" id="editTaskbtn" onclick="editTasks()">edit</button>
                             </td>
                         </tr>
+                        
+                        <tr id="editTaskdiv" >
+                            <td>
+                                <form method="POST" action="">
+                                    {% csrf_token %} {{form.as_p}}
+                                    <input hidden name="edit-hidden" value="{{ task.id }}">
+                                    <input type="text" id="editTask" name="editTask" value="{{ task.title }}">
+                                    <input type="submit" name="editTaskbtn" class="delete-btn" value="save">
+                                </form>
+                            </td>
+
+                        </tr>
+
                         {% empty %}
                         <h3>No tasks</h3>
                         {% endfor %}
+
                     </table>
                     <br><br>
                     <form method="POST">
@@ -90,6 +106,19 @@
                                     {% csrf_token %}
                                     <input hidden name="delete-hidden-habit" value="{{ habit.id }}">
                                     <input type="submit" name="deleteHabit" class="delete-btn" value="delete">
+                                    
+                                </form>
+                                <button class="delete-btn" id="editHabitbtn" onclick="editHabits()">edit</button>
+                            </td>
+                        </tr>
+
+                        <tr id="editHabitdiv" >
+                            <td>
+                                <form method="POST" action="">
+                                    {% csrf_token %} {{ form.as_p }}
+                                    <input hidden name="edit-hidden-habit" value="{{ habit.id }}">
+                                    <input type="text" id="editHabit" name="editHabit" value="{{ habit.title }}">
+                                    <input type="submit" name="editHabitbtn" class="delete-btn" value="save">
                                 </form>
                             </td>
                         </tr>
