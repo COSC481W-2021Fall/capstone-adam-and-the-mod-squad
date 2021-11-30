@@ -169,7 +169,6 @@ class dashboard(LoginRequiredMixin, ListView):
                 title__contains=search_input)
 
         context['search_input'] = search_input
-
         return context
     
     def calculate(self, request):
