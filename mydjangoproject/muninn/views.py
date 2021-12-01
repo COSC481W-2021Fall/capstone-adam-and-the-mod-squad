@@ -21,6 +21,9 @@ from django.db.models import Q
 def home(request):
     return render(request, 'muninn/home.html')
 
+def faq(request):
+    return render(request, 'muninn/faq.html')
+
 class petshop(LoginRequiredMixin, View):
     template_name = 'templates/muninn/pet_shop.html'
     def post(self, request, *args, **kwargs):
