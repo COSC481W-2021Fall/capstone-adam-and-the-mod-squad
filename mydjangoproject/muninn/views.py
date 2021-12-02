@@ -9,12 +9,16 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
-from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel
+from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel, readfile
 import traceback
 from django.contrib import messages
 import numpy as np
 from django import template
 register = template.Library()
+from django.views.generic import TemplateView
+from django.views import View
+from django.db.models import Q
+import random;
 
 # at the VERY end, refactor fakeDate (test purposes atm)
 
@@ -47,10 +51,11 @@ class petshop(LoginRequiredMixin, View):
         return redirect('muninn-pet-shop')
 
     def get(self, request):
+        namesArr=readfile()
         allAnimals = Animals.objects.all()
         level = levelForPlayer(self.request)
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals, 'level': level, 'money': queriedUser.money, 'player': queriedUser})
+        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money, 'player': queriedUser,'names':namesArr})
 
 
 def about(request):
@@ -131,13 +136,20 @@ class dashboard(LoginRequiredMixin, ListView):
                 self.calculate(request)
 
             if 'deleteTask' in request.POST:
-                queriedTask = Task.objects.get(
-                    pk=request.POST.get('delete-hidden'))
-                queriedTask.delete()
-                self.calculate(request)
-                return redirect('muninn-dashboard')
 
-            # handling the Habits
+                    queriedTask = Task.objects.get(pk=request.POST.get('delete-hidden'))
+                    queriedTask.delete()
+                    self.calculate(request)
+                    return redirect('muninn-dashboard')
+
+            if 'editTaskbtn' in request.POST:
+                if request.POST.get('editTask'):
+                    queriedTask = Task.objects.get(pk=request.POST.get('edit-hidden'))
+                    queriedTask.title = request.POST.get('editTask')
+                    queriedTask.save()
+                    self.calculate(request)
+
+            #handling the Habits       
             if 'addHabit' in request.POST:
                 if request.POST.get('habit'):
                     # Master List
@@ -161,14 +173,23 @@ class dashboard(LoginRequiredMixin, ListView):
                 self.calculate(request)
 
             if 'deleteHabit' in request.POST:
-                queriedDailyHabit = MuninnDailyHabits.objects.get(
-                    pk=request.POST.get('delete-hidden-habit'))
-                queriedDailyHabit.master_habit.active = 0
-                queriedDailyHabit.master_habit.save()
-                #queriedMasterHabit = MuninnMasterHabits.objects.get(id=request.POST.get(queriedDailyHabit.master_habit.id))
-                queriedDailyHabit.delete()
-                self.calculate(request)
-                return redirect('muninn-dashboard')
+                    queriedDailyHabit = MuninnDailyHabits.objects.get(pk=request.POST.get('delete-hidden-habit'))
+                    queriedDailyHabit.master_habit.active = 0
+                    queriedDailyHabit.master_habit.save()
+                    #queriedMasterHabit = MuninnMasterHabits.objects.get(id=request.POST.get(queriedDailyHabit.master_habit.id))
+                    queriedDailyHabit.delete()
+                    self.calculate(request)
+                    return redirect('muninn-dashboard')
+            
+            if 'editHabitbtn' in request.POST:
+                if request.POST.get('editHabit'):
+                    queriedDailyHabit = MuninnDailyHabits.objects.get(pk=request.POST.get('edit-hidden-habit'))
+                    queriedDailyHabit.master_habit.title = request.POST.get('editHabit')
+                    queriedDailyHabit.master_habit.save()
+                    queriedDailyHabit.title = request.POST.get('editHabit')
+                    queriedDailyHabit.save()
+                    self.calculate(request)
+
             return redirect('muninn-dashboard')
         except Exception:
             print(traceback.format_exc())

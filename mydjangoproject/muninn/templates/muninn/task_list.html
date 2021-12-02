@@ -35,6 +35,7 @@
                 <div class="card-body">
                     <table>
                         {% for task in tasks %}
+
                         <tr>
                             <td>
                                 <form method="POST" action="">
@@ -43,15 +44,30 @@
                                     <input type="submit" name="completeTask" value=" {{ task.title }}" class="task-btn" style="background-color: {% if task.complete == 1 %}#FCAE1E {%else%} #FEE0AA {% endif %}">
                                 </form>
                             </td>
-
+                            <td>
+                                <button class="delete-btn" id="editTaskbtn" onclick="editTasks('editTaskdiv{{forloop.counter}}')">edit</button>
+                            </td>
                             <td>
                                 <form method="POST" action="">
                                     {% csrf_token %}
                                     <input hidden name="delete-hidden" value="{{ task.id }}">
                                     <input type="submit" class="delete-btn" name="deleteTask" value="delete">
+                                    
                                 </form>
                             </td>
                         </tr>
+                        
+                        <tr id="editTaskdiv{{forloop.counter}}" style="display: none;">
+                            <td>
+                                <form method="POST" action="">
+                                    {% csrf_token %} {{form.as_p}}
+                                    <input hidden name="edit-hidden" value="{{ task.id }}">
+                                    <input type="text" id="editTask" name="editTask" value="{{ task.title }}">
+                                    <input type="submit" name="editTaskbtn" class="delete-btn" value="save">
+                                </form>
+                            </td>
+                        </tr>
+                        
                         {% empty %}
                         <h3>No tasks</h3>
                         {% endfor %}
@@ -84,12 +100,24 @@
                                 </form>
                             </td>
                             <td>
+                                <button class="delete-btn" id="editHabitbtn" onclick="editHabits('editHabitdiv{{forloop.counter}}')">edit</button>
                             </td>
                             <td>
                                 <form method="POST" action="">
                                     {% csrf_token %}
                                     <input hidden name="delete-hidden-habit" value="{{ habit.id }}">
                                     <input type="submit" name="deleteHabit" class="delete-btn" value="delete">
+                                </form>
+                            </td>
+                        </tr>
+
+                        <tr id="editHabitdiv{{forloop.counter}}" style="display: none;">
+                            <td>
+                                <form method="POST" action="">
+                                    {% csrf_token %} {{ form.as_p }}
+                                    <input hidden name="edit-hidden-habit" value="{{ habit.id }}">
+                                    <input type="text" id="editHabit" name="editHabit" value="{{ habit.title }}">
+                                    <input type="submit" name="editHabitbtn" class="delete-btn" value="save">
                                 </form>
                             </td>
                         </tr>

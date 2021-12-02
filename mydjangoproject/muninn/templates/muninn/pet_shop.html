@@ -1,4 +1,5 @@
 {% extends "muninn/base.html" %} {% load static %} {% block content %}
+
 <div class="dashboard-margin">
     <h1 class="mt-4">Pet Shop</h1>
     <div>
@@ -41,8 +42,9 @@
         <p>Please enter the name you wish to give to your pet: </p>
         <form method="POST">
             {% csrf_token %}
-            <input type="text" placeholder="Name your pet" name="name-of-pet"required>
-            <input type="text" value="" name="animal-file-name" id="animal-file-name" hidden >
+            <input type="text" placeholder= "Enter Name Here" name="name-of-pet" id="nameInput" required>
+            <input type="text" value="" name="animal-file-name" value="" id="animal-file-name" hidden >
+            <button type="button" class="navbar-toggler-icon" onclick="getRandomName()"><img class="iconshift" alt="refresh" height="10"width="10" src="\static\muninn\images\refresh.png"></button>
             <input type="submit" value="BUY PET">
         </form>
         </div>
@@ -52,16 +54,25 @@
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
+    
+    //Get the textbox for random names
+    var textBox =  document.getElementById("nameInput");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
     var hiddenInfo = document.getElementById("animal-file-name");
-    
     function buyAnimal(animal_pk) {
         console.log("in buyAnimal");
         hiddenInfo.value = animal_pk;
         modal.style.display = "block";
         //hidden value for button
+    }
+    function getRandomName(){
+        //transfers python to JavaScript
+        var namesList = [{% for name in names %}"{{name}}",{% endfor %},"Django"];
+        var random = Math.floor(Math.random()*namesList.length);
+
+        document.getElementById("nameInput").value =  ""+namesList[random];
     }
     
     // When the user clicks on <span> (x), close the modal

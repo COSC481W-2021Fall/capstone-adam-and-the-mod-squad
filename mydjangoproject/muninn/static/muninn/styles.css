@@ -3091,10 +3091,17 @@
         .fixheight {
             height: 50px;
         }
+
     }
     
     .style-four {
         height: 12px;
         border: 0;
         box-shadow: inset 0 12px 12px -12px #993E28;
+
+        .iconshift{
+            margin-left:-3px;
+        }
+
+
     }
