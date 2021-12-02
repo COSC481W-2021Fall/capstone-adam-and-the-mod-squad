@@ -37,3 +37,13 @@ function register(){
 function acctSuccess(){
     alert("Account successfully created!");
 }
+
+function editTasks(id) {
+    var editInput = document.getElementById(id);
+    editInput.style.display = "block";
+}
+
+function editHabits(id) {
+    var editInput = document.getElementById(id);
+    editInput.style.display = "block";
+}

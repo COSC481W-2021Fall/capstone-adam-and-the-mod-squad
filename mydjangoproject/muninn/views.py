@@ -1,3 +1,6 @@
+from django.db.models import Q
+from django.views import View
+from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Task, Animals, MuninnDailyHabits, MuninnMasterHabits, MuninnPlayer, MuninnRoost
@@ -6,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
-from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel
+from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel, readfile
 import traceback
 from django.contrib import messages
 import numpy as np
@@ -18,76 +21,95 @@ from django.db.models import Q
 import json
 from django.http import JsonResponse
 from django.core import serializers
+import random;
+
 
 # at the VERY end, refactor fakeDate (test purposes atm)
+
 
 def home(request):
     return render(request, 'muninn/home.html')
 
+
+def faq(request):
+    level = levelForPlayer(request)
+    return render(request, 'muninn/faq.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
+
+
 class petshop(LoginRequiredMixin, View):
     template_name = 'templates/muninn/pet_shop.html'
+
     def post(self, request, *args, **kwargs):
-        queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
-        queriedAnimal = Animals.objects.get(file_name=request.POST.get('animal-file-name'))
+        queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
+        queriedAnimal = Animals.objects.get(
+            file_name=request.POST.get('animal-file-name'))
         if (not request.POST.get('name-of-pet').strip()):
             messages.warning(request, f'Be more creative than that!')
 
         elif queriedUser.money > queriedAnimal.price:
             queriedUser.money = queriedUser.money-queriedAnimal.price
-            form = MuninnRoost(muninn_player=queriedUser, animal_name=request.POST.get('name-of-pet'), animal_type=queriedAnimal)
-            form.save() 
+            form = MuninnRoost(muninn_player=queriedUser, animal_name=request.POST.get(
+                'name-of-pet'), animal_type=queriedAnimal)
+            form.save()
             queriedUser.save()
         return redirect('muninn-pet-shop')
+
     def get(self, request):
+        namesArr=readfile()
         allAnimals = Animals.objects.all()
         level = levelForPlayer(self.request)
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money, 'player': queriedUser})
+        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money, 'player': queriedUser,'names':namesArr})
+
 
 def about(request):
     if request.user.id:
         level = levelForPlayer(request)
-        return render(request, 'muninn/about.html', {'level':level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
-    else: 
+        return render(request, 'muninn/about.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
+    else:
         return render(request, 'muninn/about.html')
+
 
 @login_required
 def roost(request):
-    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id) 
+    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
     myAnimals = MuninnRoost.objects.filter(muninn_player__exact=queriedUser)
 
     level = levelForPlayer(request)
-    if request.method=='POST' and 'filter' in request.POST :
+    if request.method == 'POST' and 'filter' in request.POST:
         print("Search:"+request.POST['search'])
-        searchQ= request.POST['search'].strip()
+        searchQ = request.POST['search'].strip()
         if searchQ:
             print("SearchQ is"+searchQ)
-            filterAnimals=myAnimals.filter(Q(animal_name__icontains=searchQ) | Q(animal_type__name__icontains=searchQ))
-            return render(request, 'muninn/roost.html', {'animalList':filterAnimals, 'level':level, 'player': queriedUser})
+            filterAnimals = myAnimals.filter(
+                Q(animal_name__icontains=searchQ) | Q(animal_type__name__icontains=searchQ))
+            return render(request, 'muninn/roost.html', {'animalList': filterAnimals, 'level': level, 'player': queriedUser})
 
-        answer=request.POST['filter']
+        answer = request.POST['filter']
         print("anser is:"+answer)
-        if answer =='+name':
-            myAnimals=myAnimals.order_by('animal_name')
-        if answer =='-name':
-            myAnimals=myAnimals.order_by('-animal_name')
+        if answer == '+name':
+            myAnimals = myAnimals.order_by('animal_name')
+        if answer == '-name':
+            myAnimals = myAnimals.order_by('-animal_name')
         if answer == '+animal':
-            myAnimals=myAnimals.order_by('animal_type__name')
+            myAnimals = myAnimals.order_by('animal_type__name')
         if answer == "-animal":
-            myAnimals=myAnimals.order_by('-animal_type__name')
+            myAnimals = myAnimals.order_by('-animal_type__name')
         if answer == '+level':
             print("level+")
-            myAnimals=myAnimals.order_by('animal_type__level')
+            myAnimals = myAnimals.order_by('animal_type__level')
         if answer == '-level':
-            myAnimals=myAnimals.order_by('-animal_type__level')
-    return render(request, 'muninn/roost.html', {'animalList':myAnimals, 'level':level, 'player': queriedUser})
+            myAnimals = myAnimals.order_by('-animal_type__level')
+    return render(request, 'muninn/roost.html', {'animalList': myAnimals, 'level': level, 'player': queriedUser})
 
 
 def usersettings(request):
     return render(request, 'muninn/user_settings.html')
 
+
 def friends(request):
     return render(request, 'muninn/friends.html')
+
 
 def statistics(request):
     return render(request, 'muninn/statistics.html')
@@ -97,22 +119,24 @@ def statisticsData(request):
     sData = serializers.serialize('json', data)
     return JsonResponse(sData, safe=False)
 
+
 class dashboard(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
-    
+
     def post(self, request, *args, **kwargs):
         try:
-            #handling the tasks
+            # handling the tasks
             if 'addTask' in request.POST:
                 if request.POST.get('task'):
-                    form = Task(title=request.POST.get('task'), created=fakeDate, user=request.user)
+                    form = Task(title=request.POST.get('task'),
+                                created=fakeDate, user=request.user)
                     form.save()
                     self.calculate(request)
-                    
-                
+
             if 'completeTask' in request.POST:
-                queriedTask = Task.objects.get(pk=request.POST.get('hidden-completeTask'))
+                queriedTask = Task.objects.get(
+                    pk=request.POST.get('hidden-completeTask'))
                 if queriedTask.complete == 1:
                     queriedTask.complete = 0
                 else:
@@ -121,24 +145,35 @@ class dashboard(LoginRequiredMixin, ListView):
                 self.calculate(request)
 
             if 'deleteTask' in request.POST:
+
                     queriedTask = Task.objects.get(pk=request.POST.get('delete-hidden'))
                     queriedTask.delete()
                     self.calculate(request)
                     return redirect('muninn-dashboard')
-                    
+
+            if 'editTaskbtn' in request.POST:
+                if request.POST.get('editTask'):
+                    queriedTask = Task.objects.get(pk=request.POST.get('edit-hidden'))
+                    queriedTask.title = request.POST.get('editTask')
+                    queriedTask.save()
+                    self.calculate(request)
+
             #handling the Habits       
             if 'addHabit' in request.POST:
                 if request.POST.get('habit'):
-                    #Master List
-                    form1 = MuninnMasterHabits(title=request.POST.get('habit'), created=fakeDate, user=request.user)
+                    # Master List
+                    form1 = MuninnMasterHabits(title=request.POST.get(
+                        'habit'), created=fakeDate, user=request.user)
                     form1.save()
-                    #Daily List
-                    
-                    form2=MuninnDailyHabits(title=request.POST.get('habit'), date=fakeDate, user=request.user, master_habit=form1)
+                    # Daily List
+
+                    form2 = MuninnDailyHabits(title=request.POST.get(
+                        'habit'), date=fakeDate, user=request.user, master_habit=form1)
                     form2.save()
                     self.calculate(request)
             if 'completeHabit' in request.POST:
-                queriedTask = MuninnDailyHabits.objects.get(pk=request.POST.get('hidden-completeHabit'))
+                queriedTask = MuninnDailyHabits.objects.get(
+                    pk=request.POST.get('hidden-completeHabit'))
                 if queriedTask.complete == True:
                     queriedTask.complete = False
                 else:
@@ -154,17 +189,31 @@ class dashboard(LoginRequiredMixin, ListView):
                     queriedDailyHabit.delete()
                     self.calculate(request)
                     return redirect('muninn-dashboard')
+            
+            if 'editHabitbtn' in request.POST:
+                if request.POST.get('editHabit'):
+                    queriedDailyHabit = MuninnDailyHabits.objects.get(pk=request.POST.get('edit-hidden-habit'))
+                    queriedDailyHabit.master_habit.title = request.POST.get('editHabit')
+                    queriedDailyHabit.master_habit.save()
+                    queriedDailyHabit.title = request.POST.get('editHabit')
+                    queriedDailyHabit.save()
+                    self.calculate(request)
+
             return redirect('muninn-dashboard')
-        except Exception :
+        except Exception:
             print(traceback.format_exc())
             return redirect('muninn-dashboard')
+
     def get_context_data(self, **kwargs):
         dailyReset(self.request)
         context = super().get_context_data(**kwargs)
-        context['tasks'] = context['tasks'].filter(user=self.request.user, created=fakeDate)
+        context['tasks'] = context['tasks'].filter(
+            user=self.request.user, created=fakeDate)
         context['count'] = context['tasks'].filter(complete=False).count()
-        context['habits'] = MuninnDailyHabits.objects.filter(user_id__exact=self.request.user.id, date=fakeDate)
-        context['player'] = MuninnPlayer.objects.get(playerid=self.request.user.id)
+        context['habits'] = MuninnDailyHabits.objects.filter(
+            user_id__exact=self.request.user.id, date=fakeDate)
+        context['player'] = MuninnPlayer.objects.get(
+            playerid=self.request.user.id)
         context['level'] = levelForPlayer(self.request)
         # TODO: calculate % to next level w function
         percentageToNextLevel = pointsTillNextLevel(self.request)
@@ -175,16 +224,19 @@ class dashboard(LoginRequiredMixin, ListView):
                 title__contains=search_input)
 
         context['search_input'] = search_input
-
         return context
-    
+
     def calculate(self, request):
         allTasks = Task.objects.filter(user=request.user, created=fakeDate)
-        allHabits = MuninnDailyHabits.objects.filter(user=request.user, date=fakeDate)
-        allCompleteTasks = Task.objects.filter(user=request.user, created=fakeDate, complete=1)
-        allCompleteHabits = MuninnDailyHabits.objects.filter(user=request.user, date=fakeDate, complete=1)
+        allHabits = MuninnDailyHabits.objects.filter(
+            user=request.user, date=fakeDate)
+        allCompleteTasks = Task.objects.filter(
+            user=request.user, created=fakeDate, complete=1)
+        allCompleteHabits = MuninnDailyHabits.objects.filter(
+            user=request.user, date=fakeDate, complete=1)
         numOfTasksHabits = len(allTasks) + len(allHabits)
-        numOfCompleteTasksHabits = len(allCompleteTasks) + len(allCompleteHabits)
+        numOfCompleteTasksHabits = len(
+            allCompleteTasks) + len(allCompleteHabits)
         percentage = round(numOfCompleteTasksHabits / numOfTasksHabits * 100)
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
         queriedUser.daily_points = percentage
