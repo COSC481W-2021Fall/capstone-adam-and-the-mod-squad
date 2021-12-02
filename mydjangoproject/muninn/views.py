@@ -104,7 +104,6 @@ class dashboard(LoginRequiredMixin, ListView):
                     form.save()
                     self.calculate(request)
                     
-                
             if 'completeTask' in request.POST:
                 queriedTask = Task.objects.get(pk=request.POST.get('hidden-completeTask'))
                 if queriedTask.complete == 1:
@@ -119,7 +118,14 @@ class dashboard(LoginRequiredMixin, ListView):
                     queriedTask.delete()
                     self.calculate(request)
                     return redirect('muninn-dashboard')
-                    
+
+            if 'editTaskbtn' in request.POST:
+                if request.POST.get('editTask'):
+                    queriedTask = Task.objects.get(pk=request.POST.get('edit-hidden'))
+                    queriedTask.title = request.POST.get('editTask')
+                    queriedTask.save()
+                    self.calculate(request)
+
             #handling the Habits       
             if 'addHabit' in request.POST:
                 if request.POST.get('habit'):
@@ -148,6 +154,15 @@ class dashboard(LoginRequiredMixin, ListView):
                     queriedDailyHabit.delete()
                     self.calculate(request)
                     return redirect('muninn-dashboard')
+            
+            if 'editHabitbtn' in request.POST:
+                if request.POST.get('editHabit'):
+                    queriedDailyHabit = MuninnDailyHabits.objects.get(pk=request.POST.get('edit-hidden-habit'))
+                    queriedDailyHabit.master_habit.title = request.POST.get('editHabit')
+                    queriedDailyHabit.master_habit.save()
+                    queriedDailyHabit.title = request.POST.get('editHabit')
+                    queriedDailyHabit.save()
+                    self.calculate(request)
             return redirect('muninn-dashboard')
         except Exception :
             print(traceback.format_exc())
