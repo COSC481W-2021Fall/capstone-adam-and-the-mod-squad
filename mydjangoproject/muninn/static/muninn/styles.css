@@ -3091,4 +3091,8 @@
         .fixheight{
             height:50px;
         }
+        .iconshift{
+            margin-left:-3px;
+        }
+
     }

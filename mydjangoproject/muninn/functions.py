@@ -1,8 +1,17 @@
 from .models import Task, Animals, MuninnDailyHabits, MuninnMasterHabits, MuninnPlayer
 from datetime import date, timedelta
+from pathlib import Path
 
 
 fakeDate = date.today() + timedelta(days=3)
+def readfile():
+    base_path = Path(__file__).parent
+    file_path = (base_path / "static/muninn/random_names.txt").resolve()
+    with open(file_path) as f:
+        lines = [line.rstrip() for line in f]
+
+
+    return lines
 
 def dailyReset(request):
     queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)

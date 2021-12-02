@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormVi
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date, timedelta
-from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel
+from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel, readfile
 import traceback
 from django.contrib import messages
 import numpy as np
@@ -15,6 +15,7 @@ register = template.Library()
 from django.views.generic import TemplateView
 from django.views import View
 from django.db.models import Q
+import random;
 
 # at the VERY end, refactor fakeDate (test purposes atm)
 
@@ -36,10 +37,11 @@ class petshop(LoginRequiredMixin, View):
             queriedUser.save()
         return redirect('muninn-pet-shop')
     def get(self, request):
+        namesArr=readfile()
         allAnimals = Animals.objects.all()
         level = levelForPlayer(self.request)
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
-        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money, 'player': queriedUser})
+        return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals,'level':level, 'money': queriedUser.money, 'player': queriedUser,'names':namesArr})
 
 def about(request):
     if request.user.id:
