@@ -49,13 +49,22 @@ d3.json("{% url "statistics_data" %}", function(error, data)
         })
     }
 
+    function setCharAt(str,index,chr) {
+        if(index > str.length-1) return str;
+        return str.substring(0,index) + chr + str.substring(index+1);
+    }
+
     var dotplot = Plot.plot({
         width: $(window).width() -300,
         height: 500,
         marginBottom: 100,
         x: {
             tickRotate: -90,
-            label: null
+            tickSize: 0,
+            label: null,
+            tickFormat: (d) => setCharAt(d.substring(5), 2, '/')
+            //domain: [new Date("2021-11-01"), new Date("2021-12-02")],
+            //grid: true
         },
         color: {
             range: ["#292738", "#E88D05"],
@@ -65,7 +74,7 @@ d3.json("{% url "statistics_data" %}", function(error, data)
             Plot.cell(results,
             {
                 // TODO: date format could be changed here
-                x: d => d.date, 
+                x: d => d.date,
                 y: d => d.habit, 
                 fill: "complete"
             })       
