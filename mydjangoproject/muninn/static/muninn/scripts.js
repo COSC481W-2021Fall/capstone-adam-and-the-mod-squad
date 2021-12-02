@@ -38,12 +38,12 @@ function acctSuccess(){
     alert("Account successfully created!");
 }
 
-function editTasks() {
-    var editInput = document.getElementById("editTaskdiv");
+function editTasks(id) {
+    var editInput = document.getElementById(id);
     editInput.style.display = "block";
 }
 
-function editHabits() {
-    var editInput = document.getElementById("editHabitDiv")
+function editHabits(id) {
+    var editInput = document.getElementById(id);
     editInput.style.display = "block";
 }
