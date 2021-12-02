@@ -24,7 +24,7 @@ d3.json("{% url "statistics_data" %}", function(error, data)
 
     var d = new Date();
     //loop through the last 30 days
-    for (d.setDate(now.getDate()-30); d < now; d.setDate(d.getDate() + 1)) {
+    for (d.setDate(now.getDate()-30); d <= now; d.setDate(d.getDate() + 1)) {
         daysOfYear.set((new Date(d)).toISOString().split('T')[0], []);
         //add array for each habit
         for (let num of arr4habits.values()){
