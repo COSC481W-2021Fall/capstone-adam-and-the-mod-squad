@@ -15,6 +15,9 @@ register = template.Library()
 from django.views.generic import TemplateView
 from django.views import View
 from django.db.models import Q
+import json
+from django.http import JsonResponse
+from django.core import serializers
 
 # at the VERY end, refactor fakeDate (test purposes atm)
 
@@ -89,7 +92,10 @@ def friends(request):
 def statistics(request):
     return render(request, 'muninn/statistics.html')
 
-
+def statisticsData(request):
+    data = MuninnDailyHabits.objects.filter(user_id__exact=request.user.id)
+    sData = serializers.serialize('json', data)
+    return JsonResponse(sData, safe=False)
 
 class dashboard(LoginRequiredMixin, ListView):
     model = Task

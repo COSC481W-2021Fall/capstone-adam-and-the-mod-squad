@@ -1,3 +1,83 @@
 {% extends "muninn/base.html" %} {% load static %} {% block content %}
-<h1>Stats</h1>
+
+<script src="https://d3js.org/d3.v3.js"></script>
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="module">
+
+import * as Plot from "https://cdn.skypack.dev/@observablehq/plot@0.2";
+
+d3.json("{% url "statistics_data" %}", function(error, data) 
+{
+    var arr4habits = [];
+
+    data = JSON.parse(data);
+
+    data.forEach(function(d) {
+        arr4habits.push(d.fields.master_habit);
+    });
+
+    arr4habits = new Set(arr4habits);
+
+    var now = new Date(); // todays date
+    var daysOfYear = new Map();
+
+    var d = new Date();
+    //loop through the last 30 days
+    for (d.setDate(now.getDate()-30); d < now; d.setDate(d.getDate() + 1)) {
+        daysOfYear.set((new Date(d)).toISOString().split('T')[0], []);
+        //add array for each habit
+        for (let num of arr4habits.values()){
+            daysOfYear.get((new Date(d)).toISOString().split('T')[0]).push({"date": (new Date(d)).toISOString().split('T')[0], "complete": 0, "habit": num});
+        }
+    }
+    
+    data.forEach(function(d) {
+        var completed = d.fields.complete ? 1 : 0; 
+
+        //we could change the query to only return the last 30 days and then not need this if?
+        //or keep it incase we maybe wanted the range to be easily changed
+        if(daysOfYear.has(d.fields.date)){
+            daysOfYear.get(d.fields.date).push({"date": d.fields.date, "complete": completed, "habit": d.fields.master_habit});
+        }
+    });
+
+    var results = [];
+    for (let value of daysOfYear.values()){
+        value.forEach(e => {
+            results.push(e);
+        })
+    }
+
+    var dotplot = Plot.plot({
+        width: $(window).width() -300,
+        height: 500,
+        marginBottom: 100,
+        x: {
+            tickRotate: -90,
+            label: null
+        },
+        color: {
+            range: ["#292738", "#E88D05"],
+            interpolate: "hcl"
+        },
+        marks: [
+            Plot.cell(results,
+            {
+                // TODO: date format could be changed here
+                x: d => d.date, 
+                y: d => d.habit, 
+                fill: "complete"
+            })       
+        ]
+    })
+
+    document.getElementById("stats-go-here").appendChild(dotplot);
+});
+
+
+</script>
+<div class="basic-margin" id="stats-go-here">
+    <h1>Stats</h1>
+</div>
 {% endblock content %}
