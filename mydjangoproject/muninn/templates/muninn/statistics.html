@@ -10,13 +10,17 @@ import * as Plot from "https://cdn.skypack.dev/@observablehq/plot@0.2";
 d3.json("{% url "statistics_data" %}", function(error, data) 
 {
     var arr4habits = [];
-
+    var arrHabitsTitles = new Map();
     data = JSON.parse(data);
 
     data.forEach(function(d) {
         arr4habits.push(d.fields.master_habit);
+        if (arrHabitsTitles.get(d.fields.master_habit) != d.fields.title){
+            arrHabitsTitles.set(d.fields.master_habit, d.fields.title);
+        }
     });
 
+    console.log(arrHabitsTitles);
     arr4habits = new Set(arr4habits);
 
     var now = new Date(); // todays date
@@ -80,13 +84,23 @@ d3.json("{% url "statistics_data" %}", function(error, data)
             })       
         ]
     })
-
+    var text="LEGEND:<br>";
+    const iterator1 = arrHabitsTitles.keys();
+    for (let i = 0; i < arrHabitsTitles.size; i++) {
+        let currentIndex = iterator1.next().value;
+        text += currentIndex + "  ->  " + arrHabitsTitles.get(currentIndex) + "<br>";
+    }
+    
     document.getElementById("stats-go-here").appendChild(dotplot);
+    document.getElementById("legend-for-stats").innerHTML = text;
 });
 
 
 </script>
 <div class="basic-margin" id="stats-go-here">
     <h1>Stats</h1>
+</div>
+<div class="legend" id="legend-for-stats">
+    <h1 style="text-align:center">HERE:<h1>
 </div>
 {% endblock content %}
