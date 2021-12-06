@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 
-fakeDate = date.today() + timedelta(days=3)
+fakeDate = date.today()#real date actually
 def readfile():
     base_path = Path(__file__).parent
     file_path = (base_path / "static/muninn/random_names.txt").resolve()
