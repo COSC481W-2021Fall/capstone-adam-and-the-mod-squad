@@ -424,6 +424,10 @@
         .basic-margin {
             margin: 80px 30px;
         }
+        .legend{
+            margin-left: auto;
+            text-align: center;
+        }
         .row {
             --bs-gutter-x: 1.5rem;
             --bs-gutter-y: 0;
@@ -3150,3 +3154,4 @@
         height: .75in;
         width: .75in;
     }
+

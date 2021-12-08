@@ -12,6 +12,7 @@ urlpatterns = [
     path('about', views.about, name='muninn-about'),
     path('user-settings', views.usersettings, name='muninn-user-settings'),
     path('statistics', views.statistics, name='muninn-statistics'),
+    path('api/statistics-data', views.statisticsData, name='statistics_data'),
     path('faq', views.faq, name='muninn-faq'),
     
     path('dashboard/', dashboard.as_view(), name='muninn-dashboard'),
@@ -21,6 +22,6 @@ urlpatterns = [
     path('user-settings/', views.usersettings, name='muninn-user-settings'),
     path('friends/', views.friends, name='muninn-friends'),
     path('statistics/', views.statistics, name='muninn-statistics'),
-    path('pet-shop', petshop.as_view(), name='muninn-pet-shop'),
-    path('pet-shop', petshop.as_view(), name='muninn-pet-shop'),
+    path('pet-shop/', petshop.as_view(), name='muninn-pet-shop'),
+    path('api/statistics-data/', views.statisticsData, name='statistics_data'),
 ]
