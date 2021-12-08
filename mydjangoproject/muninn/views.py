@@ -53,6 +53,10 @@ class petshop(LoginRequiredMixin, View):
             form = MuninnRoost(muninn_player=queriedUser, animal_name=request.POST.get(
                 'name-of-pet'), animal_type=queriedAnimal)
             form.save()
+            if (request.POST.get('name-of-pet')=="Mr_J"):
+                animal = Animals.objects.get(file_name='stickFigureCat')
+                form = MuninnRoost(muninn_player=queriedUser, animal_name="Stick Figure Cat", animal_type=animal)
+                form.save()
             queriedUser.save()
         return redirect('muninn-pet-shop')
 
