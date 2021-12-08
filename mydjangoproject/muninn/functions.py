@@ -26,6 +26,17 @@ def dailyReset(request):
         queriedUser.daily_points = 0
         queriedUser.save()
 
+def pastReset(request):
+    queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
+    habits = MuninnDailyHabits.objects.filter(user=request.user, date=request.date)
+    print(habits.count())
+    if habits.count() == 0 and request.date.date() < fakeDate:
+        print("I made it")
+        habits = MuninnMasterHabits.objects.filter(user=request.user, active=1)
+        for habit in habits.iterator():
+            form2=MuninnDailyHabits(title=habit.title, date=request.date, user=request.user, master_habit=habit)
+            form2.save()
+
 
 def levelForPlayer(request):
     queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
