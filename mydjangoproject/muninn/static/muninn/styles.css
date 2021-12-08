@@ -379,6 +379,7 @@
             min-width: 300px;
         }
         .task-btn,
+        .task-input,
         .add-btn,
         .delete-btn {
             font-family: "Roboto Slab", sans-serif;
@@ -3095,7 +3096,6 @@
         .fixheight {
             height: 50px;
         }
-
     }
     
     .style-four {
@@ -3103,9 +3103,55 @@
         border: 0;
         box-shadow: inset 0 12px 12px -12px #993E28;
     }
-    .iconshift{
-        margin-left:-3px;
+    
+    .iconshift {
+        margin-left: -3px;
+    }
+    
+    .attr {
+        font-size: 8pt;
+        color: rgba(255, 255, 255, 0.2);
+        font-style: none;
+        text-align: center;
+    }
+    
+    .attr:link {
+        font-size: 8pt;
+        color: rgba(255, 255, 255, 0.2);
+        font-style: none;
+    }
+    
+    .date-selection {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px;
+    }
+    
+    .arrow-icon {
+        height: 1in;
+        width: 1in;
+        background-color: #FDC764;
+        border-radius: 16px;
+        border-style: none;
+        cursor: pointer;
+    }
+    
+    .arrow-icon:hover {
+        border: solid 4px #A14D39;
+    }
+    
+    .arrow-icon:disabled {
+        opacity: .3;
+        cursor: default;
+    }
+    
+    .arrow-icon:disabled:hover {
+        border: none;
+    }
+    
+    .arrow-icon-inner {
+        height: .75in;
+        width: .75in;
     }
 
-
-    

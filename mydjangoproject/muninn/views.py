@@ -12,20 +12,25 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from datetime import date, timedelta
-from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel, readfile
+from datetime import date, timedelta, datetime
+from .functions import dailyReset, levelForPlayer, fakeDate, pointsTillNextLevel, readfile, pastReset
 import traceback
 from django.contrib import messages
 import numpy as np
 from django import template
 register = template.Library()
-
+from django.views.generic import TemplateView
+from django.views import View
+from django.db.models import Q
+import random
+from django.http import HttpResponseRedirect
 
 # at the VERY end, refactor fakeDate (test purposes atm)
 
 
 def home(request):
-    return render(request, 'muninn/home.html')
+    level = levelForPlayer(request)
+    return render(request, 'muninn/home.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
 
 
 def faq(request):
@@ -48,6 +53,10 @@ class petshop(LoginRequiredMixin, View):
             form = MuninnRoost(muninn_player=queriedUser, animal_name=request.POST.get(
                 'name-of-pet'), animal_type=queriedAnimal)
             form.save()
+            if (request.POST.get('name-of-pet')=="Mr_J"):
+                animal = Animals.objects.get(file_name='stickFigureCat')
+                form = MuninnRoost(muninn_player=queriedUser, animal_name="Stick Figure Cat", animal_type=animal)
+                form.save()
             queriedUser.save()
         return redirect('muninn-pet-shop')
 
@@ -111,6 +120,7 @@ def friends(request):
 def statistics(request):
     level = levelForPlayer(request)
     return render(request, 'muninn/statistics.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
+
 
 
 def statisticsData(request):
@@ -203,23 +213,44 @@ class dashboard(LoginRequiredMixin, ListView):
                     queriedDailyHabit.save()
                     self.calculate(request)
 
-            return redirect('muninn-dashboard')
+            return redirect(self.request.get_full_path())
         except Exception:
             print(traceback.format_exc())
             return redirect('muninn-dashboard')
 
     def get_context_data(self, **kwargs):
         dailyReset(self.request)
+        selectedDate = self.request.GET.get('date') or fakeDate.strftime("%Y-%m-%d")
+        datetime_object = datetime.strptime(selectedDate, '%Y-%m-%d')
+        pastDate = datetime_object+timedelta(days=-1)
+        futureDate = datetime_object+timedelta(days=1)
+        displayDate = datetime.strptime(selectedDate, '%Y-%m-%d')
+        self.request.date = datetime_object
+        pastReset(self.request)
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(
-            user=self.request.user, created=fakeDate)
+            user=self.request.user, created=selectedDate)
         context['count'] = context['tasks'].filter(complete=False).count()
         context['habits'] = MuninnDailyHabits.objects.filter(
-            user_id__exact=self.request.user.id, date=fakeDate)
+            user_id__exact=self.request.user.id, date=selectedDate)
         context['player'] = MuninnPlayer.objects.get(
             playerid=self.request.user.id)
         context['level'] = levelForPlayer(self.request)
-        # TODO: calculate % to next level w function
+        
+        print(self.request.GET.get('date'))
+        print(fakeDate.strftime("%Y-%m-%d"))
+        
+        print("This one: ")
+        print(datetime.strptime(selectedDate, '%Y-%m-%d'))
+
+        
+
+
+        context['displayDate'] = displayDate.strftime("%A, %B %e, %Y")
+        context['selectedDate'] = datetime_object.date() == fakeDate
+        context['pastDate']=pastDate.strftime("%Y-%m-%d")
+        context['futureDate']=futureDate.strftime("%Y-%m-%d")
+
         percentageToNextLevel = pointsTillNextLevel(self.request)
         context['percentToNextLevel'] = percentageToNextLevel
         search_input = self.request.GET.get('search-area') or ''
