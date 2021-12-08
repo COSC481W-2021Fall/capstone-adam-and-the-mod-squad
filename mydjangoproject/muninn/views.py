@@ -118,7 +118,9 @@ def friends(request):
 
 
 def statistics(request):
-    return render(request, 'muninn/statistics.html')
+    level = levelForPlayer(request)
+    return render(request, 'muninn/statistics.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
+
 
 
 def statisticsData(request):
