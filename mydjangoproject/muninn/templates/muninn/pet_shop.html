@@ -3,6 +3,17 @@
 <div class="dashboard-margin">
     <h1 class="mt-4">Pet Shop</h1>
     <div>
+        <form action="/roost" method="post" >
+            {% csrf_token %}
+            <select class="alert-warning" name="filter" onchange="this.form.submit()">
+                <option value="" selected="selected">--Filter By--</option>
+                <option value="+level">Level &#8593;</option>
+                <option value="-level">Level &#8595;</option>
+                <option value="+animal">Animal A-Z</option>
+                <option value="-animal">Animal Z-A</option>
+            </select>
+            <input class="alert-warning" type="text" name="search" placeholder="Search">
+        </form>
          <div class="m-sm-auto row-cols-xl-6">
 
 

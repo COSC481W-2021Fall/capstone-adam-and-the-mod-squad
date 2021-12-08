@@ -29,10 +29,12 @@ from django.http import HttpResponseRedirect
 
 
 def home(request):
+    if(not request.user.id):
+         return render(request, 'muninn/home.html')
     level = levelForPlayer(request)
     return render(request, 'muninn/home.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
 
-
+@login_required
 def faq(request):
     level = levelForPlayer(request)
     return render(request, 'muninn/faq.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
@@ -45,6 +47,8 @@ class petshop(LoginRequiredMixin, View):
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
         queriedAnimal = Animals.objects.get(
             file_name=request.POST.get('animal-file-name'))
+        
+        #for no name
         if (not request.POST.get('name-of-pet').strip()):
             messages.warning(request, f'Be more creative than that!')
 
@@ -63,6 +67,7 @@ class petshop(LoginRequiredMixin, View):
     def get(self, request):
         namesArr = readfile()
         allAnimals = Animals.objects.all()
+        allAnimals = allAnimals.order_by('level','price')
         level = levelForPlayer(self.request)
         queriedUser = MuninnPlayer.objects.get(playerid=request.user.id)
         return render(self.request, 'muninn/pet_shop.html', {'animalList': allAnimals, 'level': level, 'money': queriedUser.money, 'player': queriedUser, 'names': namesArr})
@@ -102,25 +107,23 @@ def roost(request):
         if answer == "-animal":
             myAnimals = myAnimals.order_by('-animal_type__name')
         if answer == '+level':
-            print("level+")
             myAnimals = myAnimals.order_by('animal_type__level')
         if answer == '-level':
             myAnimals = myAnimals.order_by('-animal_type__level')
     return render(request, 'muninn/roost.html', {'animalList': myAnimals, 'level': level, 'player': queriedUser})
 
-
+@login_required
 def usersettings(request):
     return render(request, 'muninn/user_settings.html')
 
-
+@login_required
 def friends(request):
     return render(request, 'muninn/friends.html')
 
-
+@login_required
 def statistics(request):
     level = levelForPlayer(request)
     return render(request, 'muninn/statistics.html', {'level': level, 'player': MuninnPlayer.objects.get(playerid=request.user.id)})
-
 
 
 def statisticsData(request):
